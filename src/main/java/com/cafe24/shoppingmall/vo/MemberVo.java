@@ -1,5 +1,7 @@
 package com.cafe24.shoppingmall.vo;
 
+import javax.validation.constraints.Email;
+
 public class MemberVo {
 	private Long no;
 	private String id;
@@ -7,6 +9,8 @@ public class MemberVo {
 	private String type;
 	private String birth;
 	private String gender;
+	
+	@Email(message="invalid email")
 	private String email;
 	private String phone;
 	private String address;
