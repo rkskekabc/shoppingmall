@@ -36,8 +36,23 @@ public class ProductController {
 		@ApiImplicitParam(name="no", value="상품번호", required=true, dataType="string", defaultValue="")
 	})
 	@RequestMapping(value="/{no}", method=RequestMethod.GET)
+	public JSONResult productDetail(@PathVariable String no) {
+		Boolean exist = true;
+		return JSONResult.success(exist);
+	}
+	
+	@ApiOperation(value="상품등록")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="no", value="상품번호", required=true, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="optionNo", value="옵션번호", required=true, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="type", value="상품 종류", required=true, dataType="string", defaultValue=""),
+		@ApiImplicitParam(name="name", value="이름", required=true, dataType="string", defaultValue=""),
+		@ApiImplicitParam(name="explanation", value="설명", required=true, dataType="string", defaultValue=""),
+		@ApiImplicitParam(name="regDate", value="등록일", required=true, dataType="string", defaultValue="")
+	})
+	@RequestMapping(value="/{no}", method=RequestMethod.GET)
 	public JSONResult checkEmail(@PathVariable String no) {
-		Boolean exist = true;;
+		Boolean exist = true;
 		return JSONResult.success(exist);
 	}
 }

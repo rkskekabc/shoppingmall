@@ -45,52 +45,52 @@ public class MemberControllerTest {
 			webAppContextSetup(webApplicationContext).
 			build();
 	}
-//
-//	@Test
-//	public void testSuccessJoinForm() throws Exception {
-//		ResultActions resultActions =
-//		mockMvc
-//		.perform(get("/api/member/join").contentType(MediaType.APPLICATION_JSON));
-//		
-//		resultActions
-//		.andExpect(status().isOk())
-//		.andDo(print())
-//		.andExpect(jsonPath("$.result", is("success")))
-//		.andExpect(jsonPath("$.data", is("member_form")));
-//	}
-//	
-//	@Test
-//	public void testSuccessJoinMember() throws Exception {
-//		MemberVo vo = new MemberVo();
-//		vo.setEmail("KSJ@ss.com");
-//		vo.setPassword("1234");
-//		
-//		ResultActions resultActions =
-//		mockMvc
-//		.perform(post("/api/member/join").contentType(MediaType.APPLICATION_JSON)
-//		.content(new Gson().toJson(vo)));   
-//		resultActions
-//		.andExpect(status().isOk())
-//		.andDo(print())
-//		.andExpect(jsonPath("$.result", is("success")))
-//		.andExpect(jsonPath("$.data", is(1)));
-//	}
-//	@Test
-//	public void testFailValidationJoinMember() throws Exception {
-//		MemberVo vo = new MemberVo();
-//		vo.setEmail("KSJ");
-//		vo.setPassword("1234");
-//		
-//		ResultActions resultActions =
-//		mockMvc
-//		.perform(post("/api/member/join").contentType(MediaType.APPLICATION_JSON)
-//		.content(new Gson().toJson(vo)));
-//		resultActions
-//		.andExpect(status().isBadRequest())
-//		.andDo(print())
-//		.andExpect(jsonPath("$.result", is("fail")))
-//		.andExpect(jsonPath("$.message", is("invalid email")));
-//	}
+
+	@Test
+	public void testSuccessJoinForm() throws Exception {
+		ResultActions resultActions =
+		mockMvc
+		.perform(get("/api/member/join").contentType(MediaType.APPLICATION_JSON));
+		
+		resultActions
+		.andExpect(status().isOk())
+		.andDo(print())
+		.andExpect(jsonPath("$.result", is("success")))
+		.andExpect(jsonPath("$.data", is("member_form")));
+	}
+	
+	@Test
+	public void testSuccessJoinMember() throws Exception {
+		MemberVo vo = new MemberVo();
+		vo.setEmail("KSJ@ss.com");
+		vo.setPassword("1234");
+		
+		ResultActions resultActions =
+		mockMvc
+		.perform(post("/api/member/join").contentType(MediaType.APPLICATION_JSON)
+		.content(new Gson().toJson(vo)));   
+		resultActions
+		.andExpect(status().isOk())
+		.andDo(print())
+		.andExpect(jsonPath("$.result", is("success")))
+		.andExpect(jsonPath("$.data", is(1)));
+	}
+	@Test
+	public void testFailValidationJoinMember() throws Exception {
+		MemberVo vo = new MemberVo();
+		vo.setEmail("KSJ");
+		vo.setPassword("1234");
+		
+		ResultActions resultActions =
+		mockMvc
+		.perform(post("/api/member/join").contentType(MediaType.APPLICATION_JSON)
+		.content(new Gson().toJson(vo)));
+		resultActions
+		.andExpect(status().isBadRequest())
+		.andDo(print())
+		.andExpect(jsonPath("$.result", is("fail")))
+		.andExpect(jsonPath("$.message", is("invalid email")));
+	}
 	
 	@Test
 	public void testSuccessExistEmail() throws Exception {
