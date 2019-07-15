@@ -13,6 +13,7 @@ public class MemberDao {
 	public MemberVo testData() {
 		MemberVo vo = new MemberVo();
 		vo.setNo(1L);
+		vo.setId("rkskek");
 		vo.setEmail("rkskek@rkskek.com");
 		vo.setPassword("1234");
 		return vo;
@@ -22,8 +23,7 @@ public class MemberDao {
 		return insert_result;
 	}
 
-	public MemberVo get(String email) {
-		System.out.println(email);
+	public MemberVo getByEmail(String email) {
 		if(testData().getEmail().equals(email)) {
 			return testData();
 		} else {
@@ -31,4 +31,18 @@ public class MemberDao {
 		}
 	}
 	
+	public MemberVo getById(String id) {
+		if(testData().getId().equals(id)) {
+			return testData();
+		} else {
+			return null;
+		}
+	}
+	public Long get(MemberVo vo) {
+		if(vo.getId().equals(testData().getId()) && vo.getPassword().equals(testData().getPassword())) {
+			return testData().getNo();
+		} else {
+			return -1L;
+		}
+	}
 }

@@ -16,6 +16,14 @@ public class MemberService {
 	}
 	
 	public Boolean existEmail(String email) {
-		return memberDao.get(email) != null;
+		return memberDao.getByEmail(email) != null;
+	}
+
+	public Boolean existId(String id) {
+		return memberDao.getById(id) != null;
+	}
+
+	public Long login(MemberVo vo) {
+		return memberDao.get(vo);
 	}
 }

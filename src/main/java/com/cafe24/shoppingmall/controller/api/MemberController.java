@@ -43,8 +43,8 @@ public class MemberController {
 		@ApiImplicitParam(name="id", value="아이디", required=true, dataType="string", defaultValue="")
 	})
 	@RequestMapping(value="/checkid", method=RequestMethod.GET)
-	public JSONResult checkId(@RequestParam(value="email", required=true, defaultValue="") String email) {
-		Boolean exist = true;
+	public JSONResult checkId(@RequestParam(value="id", required=true, defaultValue="") String id) {
+		Boolean exist = memberService.existId(id);
 		return JSONResult.success(exist);
 	}
 	
@@ -103,14 +103,21 @@ public class MemberController {
 	@ApiOperation(value="로그인 폼 요청")
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public JSONResult loginForm() {
-		Boolean exist = true;
-		return JSONResult.success(exist);
+		String url = "login_form";
+		return JSONResult.success(url);
 	}
-	
+
+	@ApiOperation(value="로그인 처리 요청")
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public ResponseEntity<JSONResult> login(@RequestBody MemberVo vo) {
+		Long no = memberService.login(vo);
+		return no != -1L ? ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no))
+							: ResponseEntity.status(HttpStatus.OK).body(JSONResult.fail("Invalid Info"));
+	}
+
 	@ApiOperation(value="로그아웃 요청")
-	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	@RequestMapping(value="/logout", method=RequestMethod.POST)
 	public JSONResult logout() {
-		Boolean exist = true;
-		return JSONResult.success(exist);
+		return JSONResult.success("logout");
 	}
 }

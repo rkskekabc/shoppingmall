@@ -121,4 +121,83 @@ public class MemberControllerTest {
 		.andExpect(jsonPath("$.result", is("success")))
 		.andExpect(jsonPath("$.data", is(false)));
 	}
+	
+	@Test
+	public void testSuccessExistId() throws Exception {
+		String id = "rkskek";
+		
+		ResultActions resultActions =
+				mockMvc
+					.perform(get("/api/member/checkid").param("id", id)
+					.contentType(MediaType.APPLICATION_JSON));
+		resultActions
+		.andExpect(status().isOk())
+		.andDo(print())
+		.andExpect(jsonPath("$.result", is("success")))
+		.andExpect(jsonPath("$.data", is(true)));
+	}
+	
+	@Test
+	public void testFailExistId() throws Exception {
+		String id = "aaa";
+		
+		ResultActions resultActions =
+				mockMvc
+					.perform(get("/api/member/checkid").param("id", id)
+					.contentType(MediaType.APPLICATION_JSON));
+		resultActions
+		.andExpect(status().isOk())
+		.andDo(print())
+		.andExpect(jsonPath("$.result", is("success")))
+		.andExpect(jsonPath("$.data", is(false)));
+	}
+	
+	@Test
+	public void testSuccessLogin() throws Exception {
+		MemberVo vo = new MemberVo();
+		vo.setId("rkskek");
+		vo.setPassword("1234");
+		
+		ResultActions resultActions =
+				mockMvc
+					.perform(post("/api/member/login")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(vo)));
+		resultActions
+		.andExpect(status().isOk())
+		.andDo(print())
+		.andExpect(jsonPath("$.result", is("success")))
+		.andExpect(jsonPath("$.data", is(1)));
+	}
+	
+	@Test
+	public void testFailLogin() throws Exception {
+		MemberVo vo = new MemberVo();
+		vo.setId("rksk");
+		vo.setPassword("123");
+		
+		ResultActions resultActions =
+				mockMvc
+					.perform(post("/api/member/login")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(vo)));
+		resultActions
+		.andExpect(status().isOk())
+		.andDo(print())
+		.andExpect(jsonPath("$.result", is("fail")))
+		.andExpect(jsonPath("$.message", is("Invalid Info")));
+	}
+	
+	@Test
+	public void testSuccsessLogout() throws Exception {
+		ResultActions resultActions =
+				mockMvc
+					.perform(post("/api/member/logout")
+					.contentType(MediaType.APPLICATION_JSON));
+		resultActions
+		.andExpect(status().isOk())
+		.andDo(print())
+		.andExpect(jsonPath("$.result", is("success")))
+		.andExpect(jsonPath("$.data", is("logout")));
+	}
 }
