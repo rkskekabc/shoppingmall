@@ -3,11 +3,13 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="membervo" type="com.cafe24.shoppingmall.vo.MemberVo" />
+		<typeAlias alias="categoryvo" type="com.cafe24.shoppingmall.vo.CategoryVo" />
 		<!-- typeAlias alias="guestbookvo" type="com.cafe24.mysite.vo.GuestbookVo" />
 		<typeAlias alias="boardvo" type="com.cafe24.mysite.vo.BoardVo" / -->
     </typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/member.xml" />
+		<mapper resource="mybatis/mappers/category.xml" />
 		<!-- mapper resource="com/cafe24/config/app/mybatis/mappers/guestbook.xml" />
 		<mapper resource="com/cafe24/config/app/mybatis/mappers/board.xml" / -->
 	</mappers>
