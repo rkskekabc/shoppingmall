@@ -50,7 +50,7 @@ public class ProductController {
 		@ApiImplicitParam(name="categoryNo", value="카테고리번호", required=false, dataType="int", defaultValue=""),
 		@ApiImplicitParam(name="searchText", value="검색어", required=false, dataType="string", defaultValue="")
 	})
-	@RequestMapping(value="/", method=RequestMethod.GET)
+	@RequestMapping(value="/insert", method=RequestMethod.GET)
 	public JSONResult productInsertForm() {
 		String url = "insert_form";
 		return JSONResult.success(url);

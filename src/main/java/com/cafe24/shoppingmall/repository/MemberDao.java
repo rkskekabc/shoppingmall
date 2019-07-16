@@ -1,14 +1,20 @@
 package com.cafe24.shoppingmall.repository;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.shoppingmall.vo.MemberVo;
 
 @Repository
 public class MemberDao {
+	private final String aesKey = "key";
 	
-//	@Autowired
-//	SqlSession sqlSession;
+	@Autowired
+	private SqlSession sqlSession;
 
 	public MemberVo testData() {
 		MemberVo vo = new MemberVo();
@@ -18,38 +24,32 @@ public class MemberDao {
 		vo.setPassword("1234");
 		return vo;
 	}
-	public Long insert(MemberVo vo) {
-		Long insert_result = testData().getNo();
-		return insert_result;
+	
+	public Long insert(MemberVo vo) { 
+		sqlSession.insert("member.insert", vo);
+		return vo.getNo();
 	}
 
-	public MemberVo getByEmail(String email) {
-		if(testData().getEmail().equals(email)) {
-			return testData();
-		} else {
-			return null;
-		}
+	public MemberVo getByEmail(MemberVo vo) {
+		vo.setAesKey(aesKey);
+		return sqlSession.selectOne("member.getByEmail", vo);
 	}
 	
-	public MemberVo getById(String id) {
-		if(testData().getId().equals(id)) {
-			return testData();
-		} else {
-			return null;
-		}
+	public MemberVo getById(MemberVo vo) {
+		vo.setAesKey(aesKey);
+		return sqlSession.selectOne("member.getById", vo);
 	}
-	public Long get(MemberVo vo) {
-		if(vo.getId().equals(testData().getId()) && vo.getPassword().equals(testData().getPassword())) {
-			return testData().getNo();
-		} else {
-			return -1L;
-		}
+	
+	public MemberVo get(MemberVo vo) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("id", vo.getId());
+		paramMap.put("password", vo.getPassword());
+		paramMap.put("aesKey", aesKey);
+		return sqlSession.selectOne("member.getByIdAndPassword", paramMap);
 	}
 	public Long update(MemberVo vo) {
-		if(vo.getNo() == testData().getNo()) {
-			return testData().getNo();
-		} else {
-			return -1L;
-		}
+		vo.setAesKey(aesKey);
+		sqlSession.update("member.update", vo);
+		return vo.getNo();
 	}
 }

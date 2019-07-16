@@ -6,6 +6,7 @@ public class MemberVo {
 	private Long no;
 	private String id;
 	private String password;
+	private String name;
 	private String type;
 	private String birth;
 	private String gender;
@@ -15,6 +16,8 @@ public class MemberVo {
 	private String phone;
 	private String address;
 	private String joinDate;
+	private String aesKey;
+	
 	public Long getNo() {
 		return no;
 	}
@@ -32,6 +35,12 @@ public class MemberVo {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getType() {
 		return type;
@@ -75,11 +84,17 @@ public class MemberVo {
 	public void setJoinDate(String joinDate) {
 		this.joinDate = joinDate;
 	}
+	public String getAesKey() {
+		return aesKey;
+	}
+	public void setAesKey(String aesKey) {
+		this.aesKey = aesKey;
+	}
 	
 	@Override
 	public String toString() {
-		return "MemberVo [no=" + no + ", id=" + id + ", password=" + password + ", type=" + type + ", birth=" + birth
-				+ ", gender=" + gender + ", email=" + email + ", phone=" + phone + ", address=" + address
-				+ ", joinDate=" + joinDate + "]";
+		return "MemberVo [no=" + no + ", id=" + id + ", password=" + password + ", name=" + name + ", type=" + type
+				+ ", birth=" + birth + ", gender=" + gender + ", email=" + email + ", phone=" + phone + ", address="
+				+ address + ", joinDate=" + joinDate + ", aesKey=" + aesKey + "]";
 	}
 }

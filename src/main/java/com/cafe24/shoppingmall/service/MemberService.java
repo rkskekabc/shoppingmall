@@ -15,15 +15,15 @@ public class MemberService {
 		return memberDao.insert(vo);
 	}
 	
-	public Boolean existEmail(String email) {
-		return memberDao.getByEmail(email) != null;
+	public Boolean existEmail(MemberVo vo) {
+		return memberDao.getByEmail(vo) != null;
 	}
 
-	public Boolean existId(String id) {
-		return memberDao.getById(id) != null;
+	public Boolean existId(MemberVo vo) {
+		return memberDao.getById(vo) != null;
 	}
 
-	public Long login(MemberVo vo) {
+	public MemberVo login(MemberVo vo) {
 		return memberDao.get(vo);
 	}
 

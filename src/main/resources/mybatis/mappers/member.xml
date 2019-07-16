@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="user">
+<mapper namespace="member">
 	
 	<insert id="insert" parameterType="membervo">
 		<![CDATA[
-			insert 
-		      into member 
-		    values(null, #{name }, #{email }, #{password }, #{gender }, now())	
+			insert into member(id, password, name, type, birth, gender, email, phone, address, join_date)
+				values(
+				#{id},
+				SHA2(#{password}, 256),
+				AES_ENCRYPT(#{name}, #{aesKey}),
+				#{type},
+				AES_ENCRYPT(#{birth}, #{aesKey}),
+				#{gender},
+				AES_ENCRYPT(#{email}, #{aesKey}),
+				AES_ENCRYPT(#{phone}, #{aesKey}),
+				AES_ENCRYPT(#{address}, #{aesKey}),
+				now())
 		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
 			<![CDATA[
@@ -15,45 +24,57 @@
 		</selectKey>
 	</insert>
 
-	<select id="getByNo" resultType="uservo" parameterType='long'>
+	<select id="getByNo" resultType="membervo" parameterType='membervo'>
 		<![CDATA[	 
-		select no, name, email, gender
-		  from user 
-		 where no = #{value }
+		select no, cast(AES_DECRYPT(name, #{aesKey}) as char) as name, cast(AES_DECRYPT(email, #{aesKey}) as char) as email, gender
+		  from member 
+		 where no = #{no }
 		]]>
 	</select>
 
-	<select id="getByEmail" resultType="uservo" parameterType='string'>
+	<select id="getById" resultType="membervo" parameterType='membervo'>
 		<![CDATA[	 
-		select no, name, email, gender
-		  from user 
-		 where email = #{value }
+		select no, cast(AES_DECRYPT(name, #{aesKey}) as char) as name, cast(AES_DECRYPT(email, #{aesKey}) as char) as email, gender
+		  from member 
+		 where id = #{id }
+		]]>
+	</select>
+
+	<select id="getByEmail" resultType="membervo" parameterType='membervo'>
+		<![CDATA[	 
+		select no, cast(AES_DECRYPT(name, #{aesKey}) as char) as name, cast(AES_DECRYPT(email, #{aesKey}) as char) as email, gender
+		  from member 
+		 where email = AES_ENCRYPT(#{email}, #{aesKey})
 		]]>
 	</select>
 	
-	<select id="getByEmailAndPassword" resultType="uservo" parameterType='map'>
+	<select id="getByIdAndPassword" resultType="membervo" parameterType='map'>
 		<![CDATA[	 
-		select no, name
-		  from user 
-		 where email=#{email } 
-		   and password=#{password }
+		select no, cast(AES_DECRYPT(name, #{aesKey}) as char) as name
+		  from member 
+		 where id=#{id } 
+		   and password=SHA2(#{password}, 256)
 		]]>
 	</select>
 	
-	<update id="update" parameterType="uservo">
+	<update id="update" parameterType="membervo">
 		<![CDATA[
-		update user
-		   set name = #{name },
+		update member
+			set name = AES_ENCRYPT(#{name}, #{aesKey}),
 		]]>
 		<if test="password != ''">
 			<![CDATA[
-			password=#{password },
+			password=SHA2(#{password}, 256),
 			]]>
 		</if>		   
 		<![CDATA[
-		       gender = #{gender }
-		       
-		 where no = #{no }      	 
+			type=#{type},
+			birth=AES_ENCRYPT(#{birth}, #{aesKey}),
+			gender=#{gender},
+			email=AES_ENCRYPT(#{email}, #{aesKey}),
+			phone=AES_ENCRYPT(#{phone}, #{aesKey}),
+			address=AES_ENCRYPT(#{address}, #{aesKey})
+			where no = #{no }
 		]]>
 	</update>
 </mapper>

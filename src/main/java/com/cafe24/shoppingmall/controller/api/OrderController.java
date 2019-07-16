@@ -25,7 +25,6 @@ public class OrderController {
 		@ApiImplicitParam(name="prodNo", value="상품번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="num", value="개수", required=true, dataType="int", defaultValue=""),
 		@ApiImplicitParam(name="price", value="가격", required=true, dataType="int", defaultValue="")
-		
 	})
 	@RequestMapping(value="/cart", method=RequestMethod.POST)
 	public JSONResult putCart(@ModelAttribute CartVo vo) {
@@ -56,19 +55,19 @@ public class OrderController {
 		return JSONResult.success(exist);
 	}
 	
-	@ApiOperation(value="주문")
+	@ApiOperation(value="주문(장바구니)")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue=""),
 	})
 	@RequestMapping(value="/", method=RequestMethod.POST)
-	public JSONResult order(@RequestParam(value="categoryNo", required=true, defaultValue="") String categoryNo, @RequestParam(value="searchText", required=false, defaultValue="") String searchText) {
+	public JSONResult order(@RequestParam(value="memberNo", required=true, defaultValue="") String memberNo) {
 		Boolean exist = true;
 		return JSONResult.success(exist);
 	}
 	
 	@ApiOperation(value="주문내역 폼 요청")
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public JSONResult productListForm(@RequestParam(value="categoryNo", required=true, defaultValue="") String categoryNo, @RequestParam(value="searchText", required=false, defaultValue="") String searchText) {
+	public JSONResult orderListForm() {
 		Boolean exist = true;
 		return JSONResult.success(exist);
 	}

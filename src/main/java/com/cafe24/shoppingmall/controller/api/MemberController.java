@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cafe24.shoppingmall.dto.JSONResult;
 import com.cafe24.shoppingmall.service.MemberService;
 import com.cafe24.shoppingmall.vo.MemberVo;
+import com.google.gson.Gson;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -43,9 +42,9 @@ public class MemberController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="id", value="아이디", required=true, dataType="string", defaultValue="")
 	})
-	@RequestMapping(value="/checkid", method=RequestMethod.GET)
-	public JSONResult checkId(@RequestParam(value="id", required=true, defaultValue="") String id) {
-		Boolean exist = memberService.existId(id);
+	@RequestMapping(value="/checkid", method=RequestMethod.POST)
+	public JSONResult checkId(@RequestBody MemberVo vo) {
+		Boolean exist = memberService.existId(vo);
 		if(exist) {
 			return JSONResult.success(exist);
 		} else {
@@ -57,9 +56,9 @@ public class MemberController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="email", value="이메일주소", required=true, dataType="string", defaultValue="")
 	})
-	@RequestMapping(value="/checkemail", method=RequestMethod.GET)
-	public ResponseEntity<JSONResult> checkEmail(@RequestParam(value="email", required=true, defaultValue="") String email) {
-		Boolean exist = memberService.existEmail(email);
+	@RequestMapping(value="/checkemail", method=RequestMethod.POST)
+	public ResponseEntity<JSONResult> checkEmail(@RequestBody MemberVo vo) {
+		Boolean exist = memberService.existEmail(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
 	}
 
@@ -107,9 +106,9 @@ public class MemberController {
 		@ApiImplicitParam(name="address", value="주소", required=true, dataType="string", defaultValue="")
 	})
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public JSONResult update(@RequestBody MemberVo vo) {
+	public ResponseEntity<JSONResult> update(@RequestBody MemberVo vo) {
 		Long no = memberService.update(vo);
-		return JSONResult.success(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no));
 	}
 	
 	@ApiOperation(value="로그인 폼 요청")
@@ -122,8 +121,8 @@ public class MemberController {
 	@ApiOperation(value="로그인 처리 요청")
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ResponseEntity<JSONResult> login(@RequestBody MemberVo vo) {
-		Long no = memberService.login(vo);
-		return no != -1L ? ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no))
+		MemberVo returnVo = memberService.login(vo);
+		return vo != null ? ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(new Gson().toJson(returnVo)))
 							: ResponseEntity.status(HttpStatus.OK).body(JSONResult.fail("Invalid Info"));
 	}
 
