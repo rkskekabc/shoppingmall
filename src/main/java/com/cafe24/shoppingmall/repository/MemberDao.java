@@ -45,4 +45,11 @@ public class MemberDao {
 			return -1L;
 		}
 	}
+	public Long update(MemberVo vo) {
+		if(vo.getNo() == testData().getNo()) {
+			return testData().getNo();
+		} else {
+			return -1L;
+		}
+	}
 }

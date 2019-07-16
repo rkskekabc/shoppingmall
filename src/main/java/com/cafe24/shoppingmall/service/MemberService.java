@@ -26,4 +26,8 @@ public class MemberService {
 	public Long login(MemberVo vo) {
 		return memberDao.get(vo);
 	}
+
+	public Long update(MemberVo vo) {
+		return memberDao.update(vo);
+	}
 }

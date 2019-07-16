@@ -189,6 +189,57 @@ public class MemberControllerTest {
 	}
 	
 	@Test
+	public void testSuccessUpdateForm() throws Exception {
+		ResultActions resultActions =
+		mockMvc
+		.perform(get("/api/member/update").contentType(MediaType.APPLICATION_JSON));
+		
+		resultActions
+		.andExpect(status().isOk())
+		.andDo(print())
+		.andExpect(jsonPath("$.result", is("success")))
+		.andExpect(jsonPath("$.data", is("update_form")));
+	}
+	
+	@Test
+	public void testSuccessUpdate() throws Exception {
+		MemberVo vo = new MemberVo();
+		vo.setNo(1L);
+		vo.setId("rksk");
+		vo.setPassword("123");
+		
+		ResultActions resultActions =
+				mockMvc
+					.perform(post("/api/member/update")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(vo)));
+		resultActions
+		.andExpect(status().isOk())
+		.andDo(print())
+		.andExpect(jsonPath("$.result", is("success")))
+		.andExpect(jsonPath("$.data", is(1)));
+	}
+	
+	@Test
+	public void testFailUpdate() throws Exception {
+		MemberVo vo = new MemberVo();
+		vo.setNo(2L);
+		vo.setId("rksk");
+		vo.setPassword("123");
+		
+		ResultActions resultActions =
+				mockMvc
+					.perform(post("/api/member/update")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(vo)));
+		resultActions
+		.andExpect(status().isOk())
+		.andDo(print())
+		.andExpect(jsonPath("$.result", is("success")))
+		.andExpect(jsonPath("$.data", is(-1)));
+	}
+	
+	@Test
 	public void testSuccsessLogout() throws Exception {
 		ResultActions resultActions =
 				mockMvc

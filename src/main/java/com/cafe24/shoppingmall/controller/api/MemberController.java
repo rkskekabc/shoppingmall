@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +25,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
-@RestController("userAPIController")
+@RestController("memberAPIController")
 @RequestMapping("/api/member")
 public class MemberController {
 
@@ -45,7 +46,11 @@ public class MemberController {
 	@RequestMapping(value="/checkid", method=RequestMethod.GET)
 	public JSONResult checkId(@RequestParam(value="id", required=true, defaultValue="") String id) {
 		Boolean exist = memberService.existId(id);
-		return JSONResult.success(exist);
+		if(exist) {
+			return JSONResult.success(exist);
+		} else {
+			return JSONResult.fail("not exist");
+		}
 	}
 	
 	@ApiOperation(value="이메일 존재 여부")
@@ -69,7 +74,6 @@ public class MemberController {
 		@ApiImplicitParam(name="phone", value="연락처", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="address", value="주소", required=true, dataType="string", defaultValue="")
 	})
-	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public ResponseEntity<JSONResult> join(@RequestBody @Valid MemberVo vo, BindingResult bindResult) {
 		// ### @Valid 통과 불가할 시 error 전달
@@ -83,8 +87,16 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no));
 	}
 	
+	@ApiOperation(value="회원정보 수정 폼 요청")
+	@RequestMapping(value="/update", method=RequestMethod.GET)
+	public JSONResult updateForm() {
+		String url = "update_form";
+		return JSONResult.success("update_form");
+	}
+	
 	@ApiOperation(value="회원정보 수정")
 	@ApiImplicitParams({
+		@ApiImplicitParam(name="no", value="회원번호", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="id", value="아이디", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="password", value="비밀번호", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="type", value="분류", required=true, dataType="string", defaultValue=""),
@@ -95,9 +107,9 @@ public class MemberController {
 		@ApiImplicitParam(name="address", value="주소", required=true, dataType="string", defaultValue="")
 	})
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public JSONResult update(@ModelAttribute MemberVo vo) {
-		Boolean exist = true;
-		return JSONResult.success(exist);
+	public JSONResult update(@RequestBody MemberVo vo) {
+		Long no = memberService.update(vo);
+		return JSONResult.success(no);
 	}
 	
 	@ApiOperation(value="로그인 폼 요청")
