@@ -18,7 +18,8 @@ public class ProductDao {
 	}
 
 	public Long insert(ProductVo vo) {
-		return null;
+		sqlSession.insert("product.insert", vo);
+		return vo.getNo();
 	}
 
 }

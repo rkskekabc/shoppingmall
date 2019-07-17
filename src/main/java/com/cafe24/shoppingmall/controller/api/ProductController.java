@@ -66,8 +66,23 @@ public class ProductController {
 		@ApiImplicitParam(name="regDate", value="등록일", required=true, dataType="string", defaultValue="")
 	})
 	@RequestMapping(value="/insert", method=RequestMethod.POST)
-	public JSONResult checkEmail(@RequestBody ProductVo vo) {
+	public JSONResult productInsert(@RequestBody ProductVo vo) {
 		Long no = productService.insert(vo);
+		return JSONResult.success(no);
+	}
+	
+	@ApiOperation(value="상품삭제")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="no", value="상품번호", required=true, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="optionNo", value="옵션번호", required=true, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="type", value="상품 종류", required=true, dataType="string", defaultValue=""),
+		@ApiImplicitParam(name="name", value="이름", required=true, dataType="string", defaultValue=""),
+		@ApiImplicitParam(name="explanation", value="설명", required=true, dataType="string", defaultValue=""),
+		@ApiImplicitParam(name="regDate", value="등록일", required=true, dataType="string", defaultValue="")
+	})
+	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST)
+	public JSONResult productDelete(@PathVariable Long no) {
+//		Long no = productService.delete(no);
 		return JSONResult.success(no);
 	}
 }
