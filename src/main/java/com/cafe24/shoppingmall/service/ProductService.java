@@ -21,4 +21,12 @@ public class ProductService {
 		return productDao.insert(vo);
 	}
 
+	public Long update(ProductVo vo) {
+		return productDao.update(vo);
+	}
+
+	public Boolean delete(Long no) {
+		return productDao.delete(no);
+	}
+
 }

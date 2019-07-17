@@ -58,8 +58,8 @@ public class ProductController {
 	
 	@ApiOperation(value="상품등록")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="no", value="상품번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="optionNo", value="옵션번호", required=true, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="categoryNo", value="카테고리번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="type", value="상품 종류", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="name", value="이름", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="explanation", value="설명", required=true, dataType="string", defaultValue=""),
@@ -70,19 +70,31 @@ public class ProductController {
 		Long no = productService.insert(vo);
 		return JSONResult.success(no);
 	}
+
 	
-	@ApiOperation(value="상품삭제")
+	@ApiOperation(value="상품수정")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="no", value="상품번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="optionNo", value="옵션번호", required=true, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="categoryNo", value="카테고리번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="type", value="상품 종류", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="name", value="이름", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="explanation", value="설명", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="regDate", value="등록일", required=true, dataType="string", defaultValue="")
 	})
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public JSONResult productUpdate(@RequestBody ProductVo vo) {
+		Long no = productService.update(vo);
+		return JSONResult.success(no);
+	}
+	
+	@ApiOperation(value="상품삭제")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="no", value="상품번호", required=true, dataType="long", defaultValue="")
+	})
 	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST)
 	public JSONResult productDelete(@PathVariable Long no) {
-//		Long no = productService.delete(no);
-		return JSONResult.success(no);
+		Boolean result = productService.delete(no);
+		return JSONResult.success(result);
 	}
 }

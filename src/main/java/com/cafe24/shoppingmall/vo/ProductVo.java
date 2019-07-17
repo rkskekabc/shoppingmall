@@ -3,6 +3,7 @@ package com.cafe24.shoppingmall.vo;
 public class ProductVo {
 	private Long no;
 	private Long optionNo;
+	private Long categoryNo;
 	private String type;
 	private String name;
 	private String explanation;
@@ -19,6 +20,12 @@ public class ProductVo {
 	}
 	public void setOptionNo(Long optionNo) {
 		this.optionNo = optionNo;
+	}
+	public Long getCategoryNo() {
+		return categoryNo;
+	}
+	public void setCategoryNo(Long categoryNo) {
+		this.categoryNo = categoryNo;
 	}
 	public String getType() {
 		return type;
@@ -47,7 +54,7 @@ public class ProductVo {
 	
 	@Override
 	public String toString() {
-		return "ProductVo [no=" + no + ", optionNo=" + optionNo + ", type=" + type + ", name=" + name + ", explanation="
-				+ explanation + ", regDate=" + regDate + "]";
+		return "ProductVo [no=" + no + ", optionNo=" + optionNo + ", categoryNo=" + categoryNo + ", type=" + type
+				+ ", name=" + name + ", explanation=" + explanation + ", regDate=" + regDate + "]";
 	}
 }

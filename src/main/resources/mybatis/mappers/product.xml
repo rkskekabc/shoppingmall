@@ -22,16 +22,17 @@
 		]]>
 	</select>
 	
-	<update id="update" parameterType="categoryvo">
+	<update id="update" parameterType="productvo">
 		<![CDATA[
-		update category
-			set name = #{name }, parent_no=#{parentNo }
+		update product
+			set option_no = #{optionNo }, category_no=#{categoryNo }, type=#{type }, name=#{name }, explanation=#{explanation } 
+			where no=#{no }
 		]]>
 	</update>
 	
 	<delete id="delete" parameterType="long">
 		<![CDATA[
-		delete from category where no = #{value }
+		delete from product where no = #{value }
 		]]>
 	</delete>
 </mapper>

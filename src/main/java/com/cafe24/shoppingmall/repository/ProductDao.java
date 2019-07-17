@@ -22,4 +22,14 @@ public class ProductDao {
 		return vo.getNo();
 	}
 
+	public Long update(ProductVo vo) {
+		sqlSession.update("product.update", vo);
+		return vo.getNo();
+	}
+
+	public Boolean delete(Long no) {
+		int result = sqlSession.delete("product.delete", no);
+		return result == 1;
+	}
+
 }
