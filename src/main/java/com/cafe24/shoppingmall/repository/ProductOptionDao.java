@@ -1,5 +1,7 @@
 package com.cafe24.shoppingmall.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,6 +12,10 @@ import com.cafe24.shoppingmall.vo.ProductOptionVo;
 public class ProductOptionDao {
 	@Autowired
 	private SqlSession sqlSession;
+
+	public List<ProductOptionVo> getList() {
+		return sqlSession.selectList("productoption.getList");
+	}
 	
 	public Long insert(ProductOptionVo vo) {
 		sqlSession.insert("productoption.insert", vo);

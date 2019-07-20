@@ -9,10 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
@@ -31,24 +32,17 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	@ApiOperation(value="회원가입 폼 요청")
-	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public JSONResult joinForm() {
-		String url = "member_form";
-		return JSONResult.success("member_form");
-	}
-	
 	@ApiOperation(value="아이디 존재 여부")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="id", value="아이디", required=true, dataType="string", defaultValue="")
 	})
-	@RequestMapping(value="/checkid", method=RequestMethod.POST)
-	public JSONResult checkId(@RequestBody MemberVo vo) {
+	@PostMapping("/checkid")
+	public ResponseEntity<JSONResult> checkId(@RequestBody MemberVo vo) {
 		Boolean exist = memberService.existId(vo);
 		if(exist) {
-			return JSONResult.success(exist);
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
 		} else {
-			return JSONResult.fail("not exist");
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.fail("not exist"));
 		}
 	}
 	
@@ -56,7 +50,7 @@ public class MemberController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="email", value="이메일주소", required=true, dataType="string", defaultValue="")
 	})
-	@RequestMapping(value="/checkemail", method=RequestMethod.POST)
+	@PostMapping("/checkemail")
 	public ResponseEntity<JSONResult> checkEmail(@RequestBody MemberVo vo) {
 		Boolean exist = memberService.existEmail(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
@@ -73,9 +67,8 @@ public class MemberController {
 		@ApiImplicitParam(name="phone", value="연락처", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="address", value="주소", required=true, dataType="string", defaultValue="")
 	})
-	@RequestMapping(value="/join", method=RequestMethod.POST)
+	@PutMapping("/")
 	public ResponseEntity<JSONResult> join(@RequestBody @Valid MemberVo vo, BindingResult bindResult) {
-		// ### @Valid 통과 불가할 시 error 전달
 		if(bindResult.hasErrors()) {
 			List<ObjectError> list = bindResult.getAllErrors();
 			for(ObjectError error : list) {
@@ -84,13 +77,6 @@ public class MemberController {
 		}
 		Long no = memberService.join(vo);
         return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no));
-	}
-	
-	@ApiOperation(value="회원정보 수정 폼 요청")
-	@RequestMapping(value="/update", method=RequestMethod.GET)
-	public JSONResult updateForm() {
-		String url = "update_form";
-		return JSONResult.success("update_form");
 	}
 	
 	@ApiOperation(value="회원정보 수정")
@@ -105,21 +91,14 @@ public class MemberController {
 		@ApiImplicitParam(name="phone", value="연락처", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="address", value="주소", required=true, dataType="string", defaultValue="")
 	})
-	@RequestMapping(value="/update", method=RequestMethod.POST)
+	@PutMapping(value="/")
 	public ResponseEntity<JSONResult> update(@RequestBody MemberVo vo) {
 		Long no = memberService.update(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no));
 	}
-	
-	@ApiOperation(value="로그인 폼 요청")
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public JSONResult loginForm() {
-		String url = "login_form";
-		return JSONResult.success(url);
-	}
 
 	@ApiOperation(value="로그인 처리 요청")
-	@RequestMapping(value="/login", method=RequestMethod.POST)
+	@PostMapping("/login")
 	public ResponseEntity<JSONResult> login(@RequestBody MemberVo vo) {
 		MemberVo returnVo = memberService.login(vo);
 		return vo != null ? ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(new Gson().toJson(returnVo)))
@@ -127,8 +106,8 @@ public class MemberController {
 	}
 
 	@ApiOperation(value="로그아웃 요청")
-	@RequestMapping(value="/logout", method=RequestMethod.POST)
-	public JSONResult logout() {
-		return JSONResult.success("logout");
+	@PostMapping("/logout")
+	public ResponseEntity<JSONResult> logout() {
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success("logout"));
 	}
 }

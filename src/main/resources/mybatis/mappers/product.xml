@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="product">
+
+	<select id="getList" resultType="productvo">
+		<![CDATA[
+		select no, option_no, category_no, type, name, explanation, reg_date
+		  from product
+		]]>
+	</select>
+
+	<select id="getByNo" resultType="productvo" parameterType='long'>
+		<![CDATA[
+		select no, option_no, category_no, type, name, explanation, reg_date
+		  from product
+		 where no=#{value }
+		]]>
+	</select>
 	
 	<insert id="insert" parameterType="productvo">
 		<![CDATA[
@@ -13,14 +28,6 @@
 			]]>
 		</selectKey>
 	</insert>
-
-	<select id="getByNo" resultType="membervo" parameterType='long'>
-		<![CDATA[
-		select no, name, parent_no
-		  from category
-		 where no = #{value }
-		]]>
-	</select>
 	
 	<update id="update" parameterType="productvo">
 		<![CDATA[

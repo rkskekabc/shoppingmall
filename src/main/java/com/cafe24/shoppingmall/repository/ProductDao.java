@@ -14,7 +14,11 @@ public class ProductDao {
 	private SqlSession sqlSession;
 	
 	public List<ProductVo> getList() {
-		return null;
+		return sqlSession.selectList("product.getList");
+	}
+
+	public ProductVo get(String no) {
+		return sqlSession.selectOne("product.getByNo", no);
 	}
 
 	public Long insert(ProductVo vo) {

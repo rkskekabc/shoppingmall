@@ -3,11 +3,15 @@ package com.cafe24.shoppingmall.controller.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
@@ -24,36 +28,21 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@ApiOperation(value="상품목록 폼 요청")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name="categoryNo", value="카테고리번호", required=false, dataType="int", defaultValue=""),
-		@ApiImplicitParam(name="searchText", value="검색어", required=false, dataType="string", defaultValue="")
-	})
-	@RequestMapping(value="/", method=RequestMethod.GET)
-	public JSONResult productListForm(@RequestParam(value="categoryNo", required=true, defaultValue="") String categoryNo, @RequestParam(value="searchText", required=false, defaultValue="") String searchText) {
-		List<ProductVo> productList = productService.getList(categoryNo, searchText);
-		return JSONResult.success("a");
+	@ApiOperation(value="상품목록")
+	@GetMapping("/")
+	public ResponseEntity<JSONResult> getList() {
+		List<ProductVo> list = productService.getList();
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 	
 	@ApiOperation(value="상품상세보기")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="no", value="상품번호", required=true, dataType="string", defaultValue="")
 	})
-	@RequestMapping(value="/{no}", method=RequestMethod.GET)
-	public JSONResult productDetail(@PathVariable String no) {
-		Boolean exist = true;
-		return JSONResult.success(exist);
-	}
-	
-	@ApiOperation(value="상품등록 폼 요청")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name="categoryNo", value="카테고리번호", required=false, dataType="int", defaultValue=""),
-		@ApiImplicitParam(name="searchText", value="검색어", required=false, dataType="string", defaultValue="")
-	})
-	@RequestMapping(value="/insert", method=RequestMethod.GET)
-	public JSONResult productInsertForm() {
-		String url = "insert_form";
-		return JSONResult.success(url);
+	@GetMapping(value="/{no}")
+	public ResponseEntity<JSONResult> productDetail(@PathVariable String no) {
+		ProductVo vo = productService.get(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
 	
 	@ApiOperation(value="상품등록")
@@ -65,10 +54,10 @@ public class ProductController {
 		@ApiImplicitParam(name="explanation", value="설명", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="regDate", value="등록일", required=true, dataType="string", defaultValue="")
 	})
-	@RequestMapping(value="/insert", method=RequestMethod.POST)
-	public JSONResult productInsert(@RequestBody ProductVo vo) {
+	@PostMapping(value="/")
+	public ResponseEntity<JSONResult> productInsert(@RequestBody ProductVo vo) {
 		Long no = productService.insert(vo);
-		return JSONResult.success(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no));
 	}
 
 	
@@ -82,19 +71,19 @@ public class ProductController {
 		@ApiImplicitParam(name="explanation", value="설명", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="regDate", value="등록일", required=true, dataType="string", defaultValue="")
 	})
-	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public JSONResult productUpdate(@RequestBody ProductVo vo) {
+	@PutMapping(value="/")
+	public ResponseEntity<JSONResult> productUpdate(@RequestBody ProductVo vo) {
 		Long no = productService.update(vo);
-		return JSONResult.success(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no));
 	}
 	
 	@ApiOperation(value="상품삭제")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="no", value="상품번호", required=true, dataType="long", defaultValue="")
 	})
-	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST)
-	public JSONResult productDelete(@PathVariable Long no) {
+	@DeleteMapping(value="/{no}")
+	public ResponseEntity<JSONResult> productDelete(@PathVariable Long no) {
 		Boolean result = productService.delete(no);
-		return JSONResult.success(result);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 }

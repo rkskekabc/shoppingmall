@@ -12,9 +12,17 @@ import com.cafe24.shoppingmall.vo.ProductVo;
 public class ProductService {
 	@Autowired
 	private ProductDao productDao;
+
+	public List<ProductVo> getList() {
+		return productDao.getList();
+	}
 	
 	public List<ProductVo> getList(String categoryNo, String searchText) {
 		return productDao.getList();
+	}
+
+	public ProductVo get(String no) {
+		return productDao.get(no);
 	}
 
 	public Long insert(ProductVo vo) {
