@@ -6,14 +6,14 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cafe24.shoppingmall.vo.ProductVo;
+import com.cafe24.shoppingmall.dto.CartProductDto;
 
 @Repository
 public class CartDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<ProductVo> getProductNums(){
+	public List<CartProductDto> getCartList(){
 		return sqlSession.selectList("");
 	}
 }

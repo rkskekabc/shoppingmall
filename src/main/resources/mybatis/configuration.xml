@@ -6,11 +6,15 @@
 		<typeAlias alias="categoryvo" type="com.cafe24.shoppingmall.vo.CategoryVo" />
 		<typeAlias alias="productvo" type="com.cafe24.shoppingmall.vo.ProductVo" />
 		<typeAlias alias="productoptionvo" type="com.cafe24.shoppingmall.vo.ProductOptionVo" />
+		<typeAlias alias="orderhistoryvo" type="com.cafe24.shoppingmall.vo.OrderHistoryVo" />
+		<typeAlias alias="cartvo" type="com.cafe24.shoppingmall.vo.CartVo" />
     </typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/member.xml" />
 		<mapper resource="mybatis/mappers/category.xml" />
 		<mapper resource="mybatis/mappers/product.xml" />
 		<mapper resource="mybatis/mappers/productoption.xml" />
+		<mapper resource="mybatis/mappers/orderhistory.xml" />
+		<mapper resource="mybatis/mappers/cart.xml" />
 	</mappers>
 </configuration>

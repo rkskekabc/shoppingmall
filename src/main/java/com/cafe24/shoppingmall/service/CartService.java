@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cafe24.shoppingmall.dto.CartProductDto;
 import com.cafe24.shoppingmall.repository.CartDao;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
@@ -13,8 +14,8 @@ public class CartService {
 	@Autowired
 	private CartDao cartDao;
 	
-	public List<ProductVo> getProductList(){
-		List<ProductVo> productNumList = cartDao.getProductNums();
+	public List<CartProductDto> getProductList(){
+		List<CartProductDto> productList = cartDao.getCartList();
 		return null;
 	}
 }
