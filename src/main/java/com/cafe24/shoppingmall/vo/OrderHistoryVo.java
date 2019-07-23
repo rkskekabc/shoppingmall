@@ -9,7 +9,7 @@ public class OrderHistoryVo {
 	private String orderDate;
 	private String cardCompany;
 	private String cardNum;
-	
+	private String aesKey;
 	public Long getNo() {
 		return no;
 	}
@@ -58,11 +58,17 @@ public class OrderHistoryVo {
 	public void setCardNum(String cardNum) {
 		this.cardNum = cardNum;
 	}
+	public String getAesKey() {
+		return aesKey;
+	}
+	public void setAesKey(String aesKey) {
+		this.aesKey = aesKey;
+	}
 	
 	@Override
 	public String toString() {
 		return "OrderHistoryVo [no=" + no + ", memberNo=" + memberNo + ", status=" + status + ", destination="
 				+ destination + ", phone=" + phone + ", orderDate=" + orderDate + ", cardCompany=" + cardCompany
-				+ ", cardNum=" + cardNum + "]";
+				+ ", cardNum=" + cardNum + ", aesKey=" + aesKey + "]";
 	}
 }

@@ -1,21 +1,21 @@
 package com.cafe24.shoppingmall.vo;
 
 public class HistoryProductVo {
-	private Long no;
-	private Long productNum;
+	private Long historyNo;
+	private Long productNo;
 	private Integer num;
 	private Integer price;
-	public Long getNo() {
-		return no;
+	public Long getHistoryNo() {
+		return historyNo;
 	}
-	public void setNo(Long no) {
-		this.no = no;
+	public void setHistoryNo(Long historyNo) {
+		this.historyNo = historyNo;
 	}
-	public Long getProductNum() {
-		return productNum;
+	public Long getProductNo() {
+		return productNo;
 	}
-	public void setProductNum(Long productNum) {
-		this.productNum = productNum;
+	public void setProductNo(Long productNo) {
+		this.productNo = productNo;
 	}
 	public Integer getNum() {
 		return num;
@@ -31,7 +31,9 @@ public class HistoryProductVo {
 	}
 	@Override
 	public String toString() {
-		return "HistoryProductVo [no=" + no + ", productNum=" + productNum + ", num=" + num + ", price=" + price + "]";
+		return "HistoryProductVo [historyNo=" + historyNo + ", productNo=" + productNo + ", num=" + num + ", price="
+				+ price + "]";
 	}
+	
 	
 }

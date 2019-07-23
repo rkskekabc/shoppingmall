@@ -40,6 +40,11 @@ public class MemberDao {
 		return sqlSession.selectOne("member.getById", vo);
 	}
 	
+	public MemberVo getByNo(MemberVo vo) {
+		vo.setAesKey(aesKey);
+		return sqlSession.selectOne("member.getByNo", vo);
+	}
+	
 	public MemberVo get(MemberVo vo) {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("id", vo.getId());

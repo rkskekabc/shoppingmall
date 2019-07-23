@@ -10,18 +10,21 @@ import com.cafe24.shoppingmall.vo.OrderHistoryVo;
 
 @Repository
 public class OrderDao {
+	private final String aesKey = "key";
+	
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<OrderHistoryVo> getList() {
-		return sqlSession.selectList("orderhistory.getList");
+	public List<OrderHistoryVo> getList(Long memberNo) {
+		return sqlSession.selectList("orderhistory.getList", memberNo);
 	}
 
 	public OrderHistoryVo get(Long no) {
 		return sqlSession.selectOne("orderhistory.getByNo", no);
 	}
 	
-	public Long insert() {
-		return null;
+	public Integer insert(OrderHistoryVo vo) {
+		vo.setAesKey(aesKey);
+		return sqlSession.insert("orderhistory.insert", vo);
 	}
 }

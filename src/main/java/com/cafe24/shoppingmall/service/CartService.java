@@ -15,8 +15,8 @@ public class CartService {
 	@Autowired
 	private CartDao cartDao;
 	
-	public List<CartProductDto> getCartList(Long memberNo){
-		List<CartProductDto> cartList = cartDao.getCartList(memberNo);
+	public List<CartProductDto> getCartProductList(Long memberNo){
+		List<CartProductDto> cartList = cartDao.getCartProductList(memberNo);
 		return cartList;
 	}
 

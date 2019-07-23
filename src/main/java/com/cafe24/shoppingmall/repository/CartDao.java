@@ -15,8 +15,12 @@ public class CartDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<CartProductDto> getCartList(Long memberNo){
+	public List<CartVo> getCartList(Long memberNo){
 		return sqlSession.selectList("cart.getCartList", memberNo);
+	}
+	
+	public List<CartProductDto> getCartProductList(Long memberNo){
+		return sqlSession.selectList("cart.getCartProductList", memberNo);
 	}
 
 	public Boolean inputCart(CartVo vo) {

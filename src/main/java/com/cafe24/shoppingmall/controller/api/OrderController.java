@@ -33,17 +33,17 @@ public class OrderController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue="")
 	})
-	@GetMapping(value="/member/{memberNo}")
+	@GetMapping("/member/{memberNo}")
 	public ResponseEntity<JSONResult> orderHistoryList(@PathVariable Long memberNo) {
-		List<OrderHistoryVo> list = orderService.getList();
+		List<OrderHistoryVo> list = orderService.getList(memberNo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 	
 	@ApiOperation(value="주문내역")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="no", value="사용자번호", required=true, dataType="long", defaultValue="")
+		@ApiImplicitParam(name="no", value="주문번호", required=true, dataType="long", defaultValue="")
 	})
-	@GetMapping(value="/{no}")
+	@GetMapping("/{no}")
 	public ResponseEntity<JSONResult> orderHistory(@PathVariable Long no) {
 		OrderHistoryVo vo = orderService.get(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
@@ -53,10 +53,10 @@ public class OrderController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue=""),
 	})
-	@PostMapping(value="/{memberNo}")
-	public JSONResult cardOrder(@PathVariable Long memberNo) {
-		Long no = orderService.cartOrder(memberNo);
-		return JSONResult.success(no);
+	@PostMapping("/{memberNo}")
+	public ResponseEntity<JSONResult> cardOrder(@PathVariable Long memberNo) {
+		Boolean result = orderService.cartOrder(memberNo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 
 	@ApiOperation(value="주문(상품)")
@@ -65,7 +65,7 @@ public class OrderController {
 	})
 	@PostMapping("/productorder")
 	public JSONResult productOrder(@RequestBody ProductOrderDto dto) {
-		Boolean exist = true;
-		return JSONResult.success(exist);
+		Boolean result = orderService.productOrder(dto);
+		return JSONResult.success(result);
 	}
 }

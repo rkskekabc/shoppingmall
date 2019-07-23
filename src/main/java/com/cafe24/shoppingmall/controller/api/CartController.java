@@ -36,7 +36,7 @@ public class CartController {
 	})
 	@GetMapping("/{memberNo}")
 	public ResponseEntity<JSONResult> getCart(@PathVariable Long memberNo){
-		List<CartProductDto> dto = cartService.getCartList(memberNo);
+		List<CartProductDto> dto = cartService.getCartProductList(memberNo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(dto));
 	}
 
@@ -45,7 +45,7 @@ public class CartController {
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="productNo", value="상품번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="num", value="개수", required=true, dataType="int", defaultValue=""),
-		@ApiImplicitParam(name="productNo", value="가격", required=true, dataType="int", defaultValue="")
+		@ApiImplicitParam(name="price", value="가격", required=true, dataType="int", defaultValue="")
 	})
 	@PostMapping("/")
 	public ResponseEntity<JSONResult> inputCart(@RequestBody CartVo vo){
@@ -58,7 +58,7 @@ public class CartController {
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="productNo", value="상품번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="num", value="개수", required=true, dataType="int", defaultValue=""),
-		@ApiImplicitParam(name="productNo", value="가격", required=true, dataType="int", defaultValue="")
+		@ApiImplicitParam(name="price", value="가격", required=true, dataType="int", defaultValue="")
 	})
 	@PutMapping("/")
 	public ResponseEntity<JSONResult> updateCart(@RequestBody CartVo vo){
