@@ -63,7 +63,7 @@ public class OrderController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue=""),
 	})
-	@RequestMapping(value="/productorder", method=RequestMethod.POST)
+	@PostMapping("/productorder")
 	public JSONResult productOrder(@RequestBody ProductOrderDto dto) {
 		Boolean exist = true;
 		return JSONResult.success(exist);

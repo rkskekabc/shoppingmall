@@ -3,18 +3,22 @@ package com.cafe24.shoppingmall.controller.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.CartProductDto;
+import com.cafe24.shoppingmall.dto.JSONResult;
 import com.cafe24.shoppingmall.dto.ProductOrderDto;
 import com.cafe24.shoppingmall.service.CartService;
-import com.cafe24.shoppingmall.vo.ProductVo;
+import com.cafe24.shoppingmall.vo.CartVo;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -31,18 +35,35 @@ public class CartController {
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue="")
 	})
 	@GetMapping("/{memberNo}")
-	public List<CartProductDto> getCart(@PathVariable Long memberNo){
-		return null;
+	public ResponseEntity<JSONResult> getCart(@PathVariable Long memberNo){
+		List<CartProductDto> dto = cartService.getCartList(memberNo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(dto));
 	}
 
 	@ApiOperation(value="장바구니등록")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue=""),
-		@ApiImplicitParam(name="productNo", value="상품번호", required=true, dataType="long", defaultValue="")
+		@ApiImplicitParam(name="productNo", value="상품번호", required=true, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="num", value="개수", required=true, dataType="int", defaultValue=""),
+		@ApiImplicitParam(name="productNo", value="가격", required=true, dataType="int", defaultValue="")
 	})
 	@PostMapping("/")
-	public List<ProductVo> inputCart(@RequestBody ProductOrderDto dto){
-		return null;
+	public ResponseEntity<JSONResult> inputCart(@RequestBody CartVo vo){
+		Boolean result = cartService.inputCart(vo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	}
+
+	@ApiOperation(value="장바구니수정")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="productNo", value="상품번호", required=true, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="num", value="개수", required=true, dataType="int", defaultValue=""),
+		@ApiImplicitParam(name="productNo", value="가격", required=true, dataType="int", defaultValue="")
+	})
+	@PutMapping("/")
+	public ResponseEntity<JSONResult> updateCart(@RequestBody CartVo vo){
+		Integer result = cartService.updateCart(vo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 
 	@ApiOperation(value="장바구니에서 제거")
@@ -51,8 +72,9 @@ public class CartController {
 		@ApiImplicitParam(name="productNo", value="상품번호", required=true, dataType="long", defaultValue="")
 	})
 	@DeleteMapping("/")
-	public List<ProductVo> deleteFromCart(@RequestBody ProductOrderDto dto){
-		return null;
+	public ResponseEntity<JSONResult> deleteFromCart(@RequestBody ProductOrderDto dto){
+		Integer result = cartService.removeProduct(dto);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 
 	@ApiOperation(value="장바구니 비우기")
@@ -60,7 +82,8 @@ public class CartController {
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue="")
 	})
 	@DeleteMapping("/{memberNo}")
-	public List<ProductVo> removeCart(@RequestBody Long memberNo){
-		return null;
+	public ResponseEntity<JSONResult> removeCart(@RequestBody Long memberNo){
+		Integer result = cartService.removeCart(memberNo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 }

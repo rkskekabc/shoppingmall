@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cart">
-	<select id="getList" resultType="categoryvo" >
+	<select id="getCartList" parameterType="long" resultType="cartproductdto" >
 		<![CDATA[
-		select no, member_no, status, destination, phone, order_date, card_company, card_num
-		  from category
+		select c.info as optionInfo, c.price as price, c.stock as stock, d.name as categoryName, b.type as type, b.name as name, b.explanation as explanation, b.reg_date as regDate, a.num as num, a.price as priceSum
+		  from cart a 
+		  join product b on a.product_no=b.no 
+		  join product_option c on b.option_no=c.no 
+		  join category d on b.category_no=d.no 
+		  where a.member_no = #{value}
 		]]>
 	</select>
 	
-	<select id="getByNo" parameterType="long" resultType="categoryvo" >
+	<insert id="insert" parameterType="cartvo">
 		<![CDATA[
-		select no, member_no, status, destination, phone, order_date, card_company, card_num
-		  from category
-		  where no=#{value}
+			insert into cart(member_no, product_no, num, price) values(#{memberNo }, #{productNo}, #{num }, #{price })
 		]]>
-	</select>
-	
-	<insert id="insert" parameterType="categoryvo">
-		<![CDATA[
-			insert into category(name, parent_no) values(#{name }, #{parentNo})
-		]]>
-		<selectKey keyProperty="no" resultType="long" order="AFTER">
-			<![CDATA[
-			select last_insert_id()
-			]]>
-		</selectKey>
 	</insert>
 	
-	<update id="update" parameterType="categoryvo">
+	<insert id="update" parameterType="cartvo">
 		<![CDATA[
-		update category
-			set name = #{name }, parent_no=#{parentNo }
+			update cart
+				set num=#{num }, price=#{price }
+				where member_no=#{memberNo } and product_no=#{productNo }
 		]]>
-	</update>
+	</insert>
 	
-	<delete id="delete" parameterType="long">
+	<delete id="deleteOne" parameterType="productorderdto">
 		<![CDATA[
-		delete from category where no = #{value }
+		delete from category
+		 where member_no=#{memberNo } and product_no=#{productNo }
+		]]>
+	</delete>
+	
+	<delete id="deleteAll" parameterType="long">
+		<![CDATA[
+		delete from category
+		 where member_no=#{value }
 		]]>
 	</delete>
 </mapper>
