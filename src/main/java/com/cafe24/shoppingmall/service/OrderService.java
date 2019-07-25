@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.shoppingmall.dto.ProductOrderDto;
 import com.cafe24.shoppingmall.repository.CartDao;
@@ -37,6 +38,7 @@ public class OrderService {
 		return orderDao.get(no);
 	}
 
+	@Transactional
 	public Boolean cartOrder(Long memberNo) {
 		MemberVo vo = new MemberVo();
 		vo.setNo(memberNo);
@@ -65,6 +67,7 @@ public class OrderService {
 		return true;
 	}
 
+	@Transactional
 	public Boolean productOrder(ProductOrderDto dto) {
 		MemberVo vo = new MemberVo();
 		vo.setNo(dto.getMemberNo());

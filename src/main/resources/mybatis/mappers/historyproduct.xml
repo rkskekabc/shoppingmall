@@ -16,16 +16,11 @@
 		]]>
 	</select>
 	
-	<insert id="insert" parameterType="categoryvo">
+	<insert id="insert" parameterType="historyproductvo">
 		<![CDATA[
-			insert into order_history(member_no, status, destination, phone, order_date)
-			 values(#{memberNo }, #{status }, AES_ENCRYPT(#{destination }, #{aesKey }), AES_ENCRYPT(#{phone }, #{aesKey }), now())
+			insert into history_product(history_no, product_no, num, price)
+			 values(#{historyNo }, #{productNo }, #{num }, #{price })
 		]]>
-		<selectKey keyProperty="no" resultType="long" order="AFTER">
-			<![CDATA[
-			select last_insert_id()
-			]]>
-		</selectKey>
 	</insert>
 	
 	<update id="update" parameterType="categoryvo">

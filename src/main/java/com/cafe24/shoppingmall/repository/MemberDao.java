@@ -25,7 +25,8 @@ public class MemberDao {
 		return vo;
 	}
 	
-	public Long insert(MemberVo vo) { 
+	public Long insert(MemberVo vo) {
+		vo.setAesKey(aesKey);
 		sqlSession.insert("member.insert", vo);
 		return vo.getNo();
 	}

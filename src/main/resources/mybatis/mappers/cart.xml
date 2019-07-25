@@ -3,7 +3,7 @@
 <mapper namespace="cart">
 	<select id="getCartList" parameterType="long" resultType="cartvo" >
 		<![CDATA[
-		select member_no, product_no, num, price
+		select member_no as memberNo, product_no as productNo, num, price
 		  from cart 
 		  where member_no = #{value}
 		]]>
@@ -36,14 +36,14 @@
 	
 	<delete id="deleteOne" parameterType="productorderdto">
 		<![CDATA[
-		delete from category
+		delete from cart
 		 where member_no=#{memberNo } and product_no=#{productNo }
 		]]>
 	</delete>
 	
 	<delete id="deleteAll" parameterType="long">
 		<![CDATA[
-		delete from category
+		delete from cart
 		 where member_no=#{value }
 		]]>
 	</delete>

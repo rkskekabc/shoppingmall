@@ -1,6 +1,8 @@
 package com.cafe24.shoppingmall.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,17 @@ public class OrderDao {
 	private SqlSession sqlSession;
 
 	public List<OrderHistoryVo> getList(Long memberNo) {
-		return sqlSession.selectList("orderhistory.getList", memberNo);
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("memberNo", memberNo);
+		paramMap.put("aesKey", aesKey);
+		return sqlSession.selectList("orderhistory.getList", paramMap);
 	}
 
 	public OrderHistoryVo get(Long no) {
-		return sqlSession.selectOne("orderhistory.getByNo", no);
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("no", no);
+		paramMap.put("aesKey", aesKey);
+		return sqlSession.selectOne("orderhistory.getByNo", paramMap);
 	}
 	
 	public Integer insert(OrderHistoryVo vo) {

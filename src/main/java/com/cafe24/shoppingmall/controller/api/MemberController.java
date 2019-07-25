@@ -60,6 +60,7 @@ public class MemberController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="id", value="아이디", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="password", value="비밀번호", required=true, dataType="string", defaultValue=""),
+		@ApiImplicitParam(name="name", value="이름", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="type", value="분류", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="birth", value="생년월일", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="gender", value="성별", required=true, dataType="string", defaultValue=""),
@@ -67,7 +68,7 @@ public class MemberController {
 		@ApiImplicitParam(name="phone", value="연락처", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="address", value="주소", required=true, dataType="string", defaultValue="")
 	})
-	@PutMapping("/")
+	@PostMapping("/")
 	public ResponseEntity<JSONResult> join(@RequestBody @Valid MemberVo vo, BindingResult bindResult) {
 		if(bindResult.hasErrors()) {
 			List<ObjectError> list = bindResult.getAllErrors();
@@ -91,7 +92,7 @@ public class MemberController {
 		@ApiImplicitParam(name="phone", value="연락처", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="address", value="주소", required=true, dataType="string", defaultValue="")
 	})
-	@PutMapping(value="/")
+	@PutMapping("/")
 	public ResponseEntity<JSONResult> update(@RequestBody MemberVo vo) {
 		Long no = memberService.update(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no));

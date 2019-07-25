@@ -26,7 +26,7 @@
 
 	<select id="getByNo" resultType="membervo" parameterType='membervo'>
 		<![CDATA[	 
-		select no, cast(AES_DECRYPT(name, #{aesKey}) as char) as name, cast(AES_DECRYPT(email, #{aesKey}) as char) as email, gender
+		select no, cast(AES_DECRYPT(name, #{aesKey}) as char) as name, cast(AES_DECRYPT(email, #{aesKey}) as char) as email, cast(AES_DECRYPT(address, #{aesKey}) as char) as address, cast(AES_DECRYPT(phone, #{aesKey}) as char) as phone, gender
 		  from member 
 		 where no = #{no }
 		]]>

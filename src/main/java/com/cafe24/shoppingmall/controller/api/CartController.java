@@ -82,7 +82,7 @@ public class CartController {
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue="")
 	})
 	@DeleteMapping("/{memberNo}")
-	public ResponseEntity<JSONResult> removeCart(@RequestBody Long memberNo){
+	public ResponseEntity<JSONResult> removeCart(@PathVariable Long memberNo){
 		Integer result = cartService.removeCart(memberNo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
