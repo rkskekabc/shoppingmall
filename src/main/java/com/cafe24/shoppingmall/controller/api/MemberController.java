@@ -9,11 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
@@ -39,11 +39,7 @@ public class MemberController {
 	@PostMapping("/checkid")
 	public ResponseEntity<JSONResult> checkId(@RequestBody MemberVo vo) {
 		Boolean exist = memberService.existId(vo);
-		if(exist) {
-			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
-		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.fail("not exist"));
-		}
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
 	}
 	
 	@ApiOperation(value="이메일 존재 여부")
@@ -92,10 +88,10 @@ public class MemberController {
 		@ApiImplicitParam(name="phone", value="연락처", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="address", value="주소", required=true, dataType="string", defaultValue="")
 	})
-	@PutMapping("/")
-	public ResponseEntity<JSONResult> update(@RequestBody MemberVo vo) {
-		Long no = memberService.update(vo);
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no));
+	@PutMapping("/{no}")
+	public ResponseEntity<JSONResult> update(@PathVariable Long no, @RequestBody MemberVo vo) {
+		Long returnNo = memberService.update(no, vo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(returnNo));
 	}
 
 	@ApiOperation(value="로그인 처리 요청")

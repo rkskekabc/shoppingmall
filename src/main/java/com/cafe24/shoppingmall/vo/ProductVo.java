@@ -2,30 +2,16 @@ package com.cafe24.shoppingmall.vo;
 
 public class ProductVo {
 	private Long no;
-	private Long optionNo;
-	private Long categoryNo;
 	private String type;
 	private String name;
+	private int price;
 	private String explanation;
 	private String regDate;
-	
 	public Long getNo() {
 		return no;
 	}
 	public void setNo(Long no) {
 		this.no = no;
-	}
-	public Long getOptionNo() {
-		return optionNo;
-	}
-	public void setOptionNo(Long optionNo) {
-		this.optionNo = optionNo;
-	}
-	public Long getCategoryNo() {
-		return categoryNo;
-	}
-	public void setCategoryNo(Long categoryNo) {
-		this.categoryNo = categoryNo;
 	}
 	public String getType() {
 		return type;
@@ -39,6 +25,12 @@ public class ProductVo {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public String getExplanation() {
 		return explanation;
 	}
@@ -51,10 +43,10 @@ public class ProductVo {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	
 	@Override
 	public String toString() {
-		return "ProductVo [no=" + no + ", optionNo=" + optionNo + ", categoryNo=" + categoryNo + ", type=" + type
-				+ ", name=" + name + ", explanation=" + explanation + ", regDate=" + regDate + "]";
+		return "ProductVo [no=" + no + ", type=" + type + ", name=" + name + ", price=" + price + ", explanation="
+				+ explanation + ", regDate=" + regDate + "]";
 	}
+	
 }

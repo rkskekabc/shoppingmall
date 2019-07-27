@@ -37,7 +37,7 @@ public class ProductController {
 	
 	@ApiOperation(value="상품상세보기")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="no", value="상품번호", required=true, dataType="string", defaultValue="")
+		@ApiImplicitParam(name="no", value="상품번호", required=true, dataType="long", defaultValue="")
 	})
 	@GetMapping(value="/{no}")
 	public ResponseEntity<JSONResult> productDetail(@PathVariable String no) {

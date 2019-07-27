@@ -57,7 +57,7 @@ public class OrderService {
 		for(CartVo cartVo : cartList) {
 			HistoryProductVo historyProductVo = new HistoryProductVo();
 			historyProductVo.setHistoryNo(orderHistoryVo.getNo());
-			historyProductVo.setProductNo(cartVo.getProductNo());
+			//historyProductVo.setProductNo(cartVo.getProductNo());
 			historyProductVo.setNum(cartVo.getNum());
 			historyProductVo.setPrice(cartVo.getPrice());
 			
@@ -84,7 +84,7 @@ public class OrderService {
 		
 		HistoryProductVo historyProductVo = new HistoryProductVo();
 		historyProductVo.setHistoryNo(orderHistoryVo.getNo());
-		historyProductVo.setProductNo(dto.getProductNo());
+		//historyProductVo.setProductNo(dto.getProductNo());
 		historyProductVo.setNum(dto.getNum());
 		historyProductVo.setPrice(dto.getPrice());
 		

@@ -2,7 +2,7 @@ package com.cafe24.shoppingmall.vo;
 
 public class CartVo {
 	private Long memberNo;
-	private Long productNo;
+	private Long optionDetailNo;
 	private int num;
 	private int price;
 	public Long getMemberNo() {
@@ -11,11 +11,11 @@ public class CartVo {
 	public void setMemberNo(Long memberNo) {
 		this.memberNo = memberNo;
 	}
-	public Long getProductNo() {
-		return productNo;
+	public Long getOptionDetailNo() {
+		return optionDetailNo;
 	}
-	public void setProductNo(Long productNo) {
-		this.productNo = productNo;
+	public void setOptionDetailNo(Long optionDetailNo) {
+		this.optionDetailNo = optionDetailNo;
 	}
 	public int getNum() {
 		return num;
@@ -32,6 +32,7 @@ public class CartVo {
 	
 	@Override
 	public String toString() {
-		return "CartVo [memberNo=" + memberNo + ", productNo=" + productNo + ", num=" + num + ", price=" + price + "]";
+		return "CartVo [memberNo=" + memberNo + ", optionDetailNo=" + optionDetailNo + ", num=" + num + ", price="
+				+ price + "]";
 	}
 }

@@ -27,7 +27,8 @@ public class MemberService {
 		return memberDao.get(vo);
 	}
 
-	public Long update(MemberVo vo) {
+	public Long update(Long no, MemberVo vo) {
+		vo.setNo(no);
 		return memberDao.update(vo);
 	}
 }
