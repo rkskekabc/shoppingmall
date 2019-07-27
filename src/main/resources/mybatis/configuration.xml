@@ -5,10 +5,13 @@
 		<typeAlias alias="membervo" type="com.cafe24.shoppingmall.vo.MemberVo" />
 		<typeAlias alias="categoryvo" type="com.cafe24.shoppingmall.vo.CategoryVo" />
 		<typeAlias alias="productvo" type="com.cafe24.shoppingmall.vo.ProductVo" />
-		<typeAlias alias="productoptionvo" type="com.cafe24.shoppingmall.vo.ProductOptionVo" />
 		<typeAlias alias="orderhistoryvo" type="com.cafe24.shoppingmall.vo.OrderHistoryVo" />
 		<typeAlias alias="cartvo" type="com.cafe24.shoppingmall.vo.CartVo" />
 		<typeAlias alias="historyproductvo" type="com.cafe24.shoppingmall.vo.HistoryProductVo" />
+		<typeAlias alias="optionparentvo" type="com.cafe24.shoppingmall.vo.OptionParentVo" />
+		<typeAlias alias="optionchildvo" type="com.cafe24.shoppingmall.vo.OptionChildVo" />
+		<typeAlias alias="optiondetailvo" type="com.cafe24.shoppingmall.vo.OptionDetailVo" />
+		<typeAlias alias="optiondetailinfodto" type="com.cafe24.shoppingmall.dto.OptionDetailInfoDto" />
 		<typeAlias alias="cartproductdto" type="com.cafe24.shoppingmall.dto.CartProductDto" />
 		<typeAlias alias="productorderdto" type="com.cafe24.shoppingmall.dto.ProductOrderDto" />
     </typeAliases>	
@@ -16,7 +19,9 @@
 		<mapper resource="mybatis/mappers/member.xml" />
 		<mapper resource="mybatis/mappers/category.xml" />
 		<mapper resource="mybatis/mappers/product.xml" />
-		<mapper resource="mybatis/mappers/productoption.xml" />
+		<mapper resource="mybatis/mappers/optionparent.xml" />
+		<mapper resource="mybatis/mappers/optionchild.xml" />
+		<mapper resource="mybatis/mappers/optiondetail.xml" />
 		<mapper resource="mybatis/mappers/orderhistory.xml" />
 		<mapper resource="mybatis/mappers/historyproduct.xml" />
 		<mapper resource="mybatis/mappers/cart.xml" />

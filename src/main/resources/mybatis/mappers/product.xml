@@ -4,14 +4,14 @@
 
 	<select id="getList" resultType="productvo">
 		<![CDATA[
-		select no, option_no, category_no, type, name, explanation, reg_date
+		select no, type, name, price, explanation, reg_date
 		  from product
 		]]>
 	</select>
 
 	<select id="getByNo" resultType="productvo" parameterType='long'>
 		<![CDATA[
-		select no, option_no, category_no, type, name, explanation, reg_date
+		select no, type, name, price, explanation, reg_date
 		  from product
 		 where no=#{value }
 		]]>
@@ -19,8 +19,8 @@
 	
 	<insert id="insert" parameterType="productvo">
 		<![CDATA[
-			insert into product(option_no, category_no, type, name, explanation, reg_date)
-			 values(#{optionNo }, #{categoryNo }, #{type }, #{name }, #{explanation }, now())
+			insert into product(type, name, price, explanation, reg_date)
+			 values(#{type }, #{name }, #{price }, #{explanation }, now())
 		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
 			<![CDATA[

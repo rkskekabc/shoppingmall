@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="optionparent">
+
+	<select id="getList" resultType="optionparentvo">
+		<![CDATA[
+		select no, name
+		  from option_parent
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="optionparentvo">
+		<![CDATA[
+			insert into option_parent(name) values(#{name })
+		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+			select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
+
+	<select id="getByNo" resultType="optionparentvo" parameterType='long'>
+		<![CDATA[
+		select no, name
+		  from option_parent
+		 where no = #{value }
+		]]>
+	</select>
+	
+	<update id="update" parameterType="optionparentvo">
+		<![CDATA[
+		update option_parent
+			set name=#{name } 
+			where no=#{no }
+		]]>
+	</update>
+	
+	<delete id="delete" parameterType="long">
+		<![CDATA[
+		delete from option_parent where no = #{value }
+		]]>
+	</delete>
+</mapper>

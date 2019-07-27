@@ -47,12 +47,10 @@ public class ProductController {
 	
 	@ApiOperation(value="상품등록")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="optionNo", value="옵션번호", required=true, dataType="long", defaultValue=""),
-		@ApiImplicitParam(name="categoryNo", value="카테고리번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="type", value="상품 종류", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="name", value="이름", required=true, dataType="string", defaultValue=""),
+		@ApiImplicitParam(name="price", value="가격", required=true, dataType="int", defaultValue=""),
 		@ApiImplicitParam(name="explanation", value="설명", required=true, dataType="string", defaultValue=""),
-		@ApiImplicitParam(name="regDate", value="등록일", required=true, dataType="string", defaultValue="")
 	})
 	@PostMapping(value="/")
 	public ResponseEntity<JSONResult> productInsert(@RequestBody ProductVo vo) {
@@ -64,12 +62,10 @@ public class ProductController {
 	@ApiOperation(value="상품수정")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="no", value="상품번호", required=true, dataType="long", defaultValue=""),
-		@ApiImplicitParam(name="optionNo", value="옵션번호", required=true, dataType="long", defaultValue=""),
-		@ApiImplicitParam(name="categoryNo", value="카테고리번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="type", value="상품 종류", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="name", value="이름", required=true, dataType="string", defaultValue=""),
+		@ApiImplicitParam(name="price", value="가격", required=true, dataType="int", defaultValue=""),
 		@ApiImplicitParam(name="explanation", value="설명", required=true, dataType="string", defaultValue=""),
-		@ApiImplicitParam(name="regDate", value="등록일", required=true, dataType="string", defaultValue="")
 	})
 	@PutMapping(value="/")
 	public ResponseEntity<JSONResult> productUpdate(@RequestBody ProductVo vo) {

@@ -5,27 +5,54 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cafe24.shoppingmall.repository.ProductOptionDao;
-import com.cafe24.shoppingmall.vo.ProductOptionVo;
+import com.cafe24.shoppingmall.repository.OptionChildDao;
+import com.cafe24.shoppingmall.repository.OptionParentDao;
+import com.cafe24.shoppingmall.vo.OptionChildVo;
+import com.cafe24.shoppingmall.vo.OptionParentVo;
 
 @Service
 public class ProductOptionService {
 	@Autowired
-	private ProductOptionDao productOptionDao;
+	private OptionParentDao optionParentDao;
 
-	public List<ProductOptionVo> getList() {
-		return productOptionDao.getList();
-	}
-	
-	public Long insert(ProductOptionVo vo) {
-		return productOptionDao.insert(vo);
-	}
+	@Autowired
+	private OptionChildDao optionChildDao;
 
-	public Long update(ProductOptionVo vo) {
-		return productOptionDao.update(vo);
+	public List<OptionParentVo> getOptionParentList() {
+		return optionParentDao.getList();
 	}
 
-	public Boolean delete(Long no) {
-		return productOptionDao.delete(no);
+	public Long insertOptionParent(OptionParentVo vo) {
+		return optionParentDao.insert(vo);
+	}
+
+	public Long updateOptionParent(Long no, OptionParentVo vo) {
+		vo.setNo(no);
+		return optionParentDao.update(vo);
+	}
+
+	public Boolean deleteOptionParent(Long no) {
+		return optionParentDao.delete(no);
+	}
+
+	public List<OptionChildVo> getOptionChildList() {
+		return optionChildDao.getList();
+	}
+
+	public List<OptionParentVo> getOptionChildWithParentList(Long optionParentNo) {
+		return optionChildDao.getWithParentList(optionParentNo);
+	}
+
+	public Long insertOptionChild(OptionChildVo vo) {
+		return optionChildDao.insert(vo);
+	}
+
+	public Long updateOptionChild(Long no, OptionChildVo vo) {
+		vo.setNo(no);
+		return optionChildDao.update(vo);
+	}
+
+	public Boolean deleteOptionChild(Long no) {
+		return optionChildDao.delete(no);
 	}
 }
