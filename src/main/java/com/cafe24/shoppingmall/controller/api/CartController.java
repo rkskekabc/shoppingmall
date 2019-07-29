@@ -43,7 +43,7 @@ public class CartController {
 	@ApiOperation(value="장바구니등록")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue=""),
-		@ApiImplicitParam(name="productNo", value="상품번호", required=true, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="optionDetailNo", value="상세옵션번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="num", value="개수", required=true, dataType="int", defaultValue=""),
 		@ApiImplicitParam(name="price", value="가격", required=true, dataType="int", defaultValue="")
 	})
@@ -56,7 +56,7 @@ public class CartController {
 	@ApiOperation(value="장바구니수정")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue=""),
-		@ApiImplicitParam(name="productNo", value="상품번호", required=true, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="optionDetailNo", value="상세옵션번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="num", value="개수", required=true, dataType="int", defaultValue=""),
 		@ApiImplicitParam(name="price", value="가격", required=true, dataType="int", defaultValue="")
 	})
@@ -69,7 +69,7 @@ public class CartController {
 	@ApiOperation(value="장바구니에서 제거")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue=""),
-		@ApiImplicitParam(name="productNo", value="상품번호", required=true, dataType="long", defaultValue="")
+		@ApiImplicitParam(name="optionDetailNo", value="상품번호", required=true, dataType="long", defaultValue="")
 	})
 	@DeleteMapping("/")
 	public ResponseEntity<JSONResult> deleteFromCart(@RequestBody ProductOrderDto dto){

@@ -2,7 +2,7 @@ package com.cafe24.shoppingmall.dto;
 
 public class ProductOrderDto {
 	private Long memberNo;
-	private Long productNo;
+	private Long optionDetailNo;
 	private int num;
 	private int price;
 	public Long getMemberNo() {
@@ -11,11 +11,11 @@ public class ProductOrderDto {
 	public void setMemberNo(Long memberNo) {
 		this.memberNo = memberNo;
 	}
-	public Long getProductNo() {
-		return productNo;
+	public Long getOptionDetailNo() {
+		return optionDetailNo;
 	}
-	public void setProductNo(Long productNo) {
-		this.productNo = productNo;
+	public void setOptionDetailNo(Long optionDetailNo) {
+		this.optionDetailNo = optionDetailNo;
 	}
 	public int getNum() {
 		return num;
@@ -31,7 +31,8 @@ public class ProductOrderDto {
 	}
 	@Override
 	public String toString() {
-		return "ProductOrderDto [memberNo=" + memberNo + ", productNo=" + productNo + ", num=" + num + ", price="
-				+ price + "]";
+		return "ProductOrderDto [memberNo=" + memberNo + ", optionDetailNo=" + optionDetailNo + ", num=" + num
+				+ ", price=" + price + "]";
 	}
+	
 }

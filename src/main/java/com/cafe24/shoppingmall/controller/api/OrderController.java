@@ -51,8 +51,8 @@ public class OrderController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue=""),
 	})
-	@PostMapping("/{memberNo}")
-	public ResponseEntity<JSONResult> cardOrder(@PathVariable Long memberNo) {
+	@PostMapping("/cart/{memberNo}")
+	public ResponseEntity<JSONResult> cartOrder(@PathVariable Long memberNo) {
 		Boolean result = orderService.cartOrder(memberNo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
