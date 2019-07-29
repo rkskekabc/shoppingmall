@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cafe24.shoppingmall.dto.OptionDetailInfoDto;
 import com.cafe24.shoppingmall.repository.OptionDetailDao;
+import com.cafe24.shoppingmall.vo.OptionDetailVo;
 
 @Service
 public class OptionDetailService {
@@ -16,6 +17,17 @@ public class OptionDetailService {
 	public List<OptionDetailInfoDto> getList() {
 		return optionDetailDao.getList();
 	}
-	
-	
+
+	public Long insert(OptionDetailVo vo) {
+		return optionDetailDao.insert(vo);
+	}
+
+	public Long update(Long no, OptionDetailVo vo) {
+		vo.setNo(no);
+		return optionDetailDao.update(vo);
+	}
+
+	public Boolean delete(Long no) {
+		return optionDetailDao.delete(no);
+	}
 }

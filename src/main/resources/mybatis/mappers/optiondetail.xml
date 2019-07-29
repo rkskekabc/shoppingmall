@@ -17,7 +17,7 @@
 	
 	<insert id="insert" parameterType="optiondetailvo">
 		<![CDATA[
-			insert into option_detail(product_no, category_no, option_child_no1, option_child_no2, stock) values(#{productNo }, #{categoryNo }, #{optionChildNo1 }, #{optionChildNo2 })
+			insert into option_detail(product_no, category_no, option_child_no1, option_child_no2, stock) values(#{productNo }, #{categoryNo }, #{optionChildNo1 }, #{optionChildNo2 }, #{stock })
 		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
 			<![CDATA[
