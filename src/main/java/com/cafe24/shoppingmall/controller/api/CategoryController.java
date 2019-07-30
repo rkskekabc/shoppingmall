@@ -29,7 +29,7 @@ public class CategoryController {
 	private CategoryService categoryService;
 	
 	@ApiOperation(value="카테고리목록")
-	@GetMapping(value="/")
+	@GetMapping("")
 	public ResponseEntity<JSONResult> getList() {
 		List<CategoryVo> list = categoryService.getList();
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
@@ -48,7 +48,7 @@ public class CategoryController {
 		@ApiImplicitParam(name="name", value="카테고리명", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="parent_no", value="상위 카테고리 번호", required=true, dataType="long", defaultValue="")
 	})
-	@PostMapping("/")
+	@PostMapping("")
 	public ResponseEntity<JSONResult> add(@RequestBody CategoryVo vo) {
 		Long no = categoryService.add(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no));
@@ -56,7 +56,9 @@ public class CategoryController {
 	
 	@ApiOperation(value="카테고리수정")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="no", value="카테고리번호", required=true, dataType="long", defaultValue="")
+		@ApiImplicitParam(name="no", value="카테고리번호", required=true, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="name", value="카테고리명", required=true, dataType="string", defaultValue=""),
+		@ApiImplicitParam(name="parent_no", value="상위 카테고리 번호", required=true, dataType="long", defaultValue="")
 	})
 	@PutMapping("/{no}")
 	public ResponseEntity<JSONResult> update(@PathVariable Long no, @RequestBody CategoryVo vo) {

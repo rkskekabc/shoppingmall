@@ -3,14 +3,14 @@
 <mapper namespace="category">
 	<select id="getList" resultType="categoryvo" >
 		<![CDATA[
-		select no, name, parent_no
+		select no, name, parent_no as parentNo
 		  from category
 		]]>
 	</select>
 	
 	<select id="getByNo" parameterType="long" resultType="categoryvo" >
 		<![CDATA[
-		select no, name, parent_no
+		select no, name, parent_no as parentNo
 		  from category
 		  where no=#{value}
 		]]>
@@ -31,6 +31,7 @@
 		<![CDATA[
 		update category
 			set name = #{name }, parent_no=#{parentNo }
+			where no = #{no }
 		]]>
 	</update>
 	

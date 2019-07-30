@@ -17,7 +17,7 @@ public class ProductDao {
 		return sqlSession.selectList("product.getList");
 	}
 
-	public ProductVo get(String no) {
+	public ProductVo get(Long no) {
 		return sqlSession.selectOne("product.getByNo", no);
 	}
 

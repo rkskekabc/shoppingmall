@@ -21,7 +21,7 @@ public class ProductService {
 		return productDao.getList();
 	}
 
-	public ProductVo get(String no) {
+	public ProductVo get(Long no) {
 		return productDao.get(no);
 	}
 
@@ -29,7 +29,8 @@ public class ProductService {
 		return productDao.insert(vo);
 	}
 
-	public Long update(ProductVo vo) {
+	public Long update(Long no, ProductVo vo) {
+		vo.setNo(no);
 		return productDao.update(vo);
 	}
 

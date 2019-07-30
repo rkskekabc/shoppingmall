@@ -29,7 +29,7 @@ public class ProductController {
 	private ProductService productService;
 	
 	@ApiOperation(value="상품목록")
-	@GetMapping("/")
+	@GetMapping("")
 	public ResponseEntity<JSONResult> getList() {
 		List<ProductVo> list = productService.getList();
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
@@ -40,7 +40,7 @@ public class ProductController {
 		@ApiImplicitParam(name="no", value="상품번호", required=true, dataType="long", defaultValue="")
 	})
 	@GetMapping(value="/{no}")
-	public ResponseEntity<JSONResult> productDetail(@PathVariable String no) {
+	public ResponseEntity<JSONResult> productDetail(@PathVariable Long no) {
 		ProductVo vo = productService.get(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
@@ -52,7 +52,7 @@ public class ProductController {
 		@ApiImplicitParam(name="price", value="가격", required=true, dataType="int", defaultValue=""),
 		@ApiImplicitParam(name="explanation", value="설명", required=true, dataType="string", defaultValue=""),
 	})
-	@PostMapping(value="/")
+	@PostMapping("")
 	public ResponseEntity<JSONResult> productInsert(@RequestBody ProductVo vo) {
 		Long no = productService.insert(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no));
@@ -67,10 +67,10 @@ public class ProductController {
 		@ApiImplicitParam(name="price", value="가격", required=true, dataType="int", defaultValue=""),
 		@ApiImplicitParam(name="explanation", value="설명", required=true, dataType="string", defaultValue=""),
 	})
-	@PutMapping(value="/")
-	public ResponseEntity<JSONResult> productUpdate(@RequestBody ProductVo vo) {
-		Long no = productService.update(vo);
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no));
+	@PutMapping(value="/{no}")
+	public ResponseEntity<JSONResult> productUpdate(@PathVariable Long no, @RequestBody ProductVo vo) {
+		Long resultNo = productService.update(no, vo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(resultNo));
 	}
 	
 	@ApiOperation(value="상품삭제")

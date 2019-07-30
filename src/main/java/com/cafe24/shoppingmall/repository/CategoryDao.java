@@ -18,7 +18,7 @@ public class CategoryDao {
 	}
 
 	public CategoryVo get(Long no) {
-		return sqlSession.selectOne("category.get", no);
+		return sqlSession.selectOne("category.getByNo", no);
 	}
 	
 	public Long insert(CategoryVo vo) {

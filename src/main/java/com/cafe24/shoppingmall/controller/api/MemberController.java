@@ -64,7 +64,7 @@ public class MemberController {
 		@ApiImplicitParam(name="phone", value="연락처", required=true, dataType="string", defaultValue=""),
 		@ApiImplicitParam(name="address", value="주소", required=true, dataType="string", defaultValue="")
 	})
-	@PostMapping("/")
+	@PostMapping("")
 	public ResponseEntity<JSONResult> join(@RequestBody @Valid MemberVo vo, BindingResult bindResult) {
 		if(bindResult.hasErrors()) {
 			List<ObjectError> list = bindResult.getAllErrors();

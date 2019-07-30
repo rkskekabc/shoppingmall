@@ -47,7 +47,7 @@ public class CartController {
 		@ApiImplicitParam(name="num", value="개수", required=true, dataType="int", defaultValue=""),
 		@ApiImplicitParam(name="price", value="가격", required=true, dataType="int", defaultValue="")
 	})
-	@PostMapping("/")
+	@PostMapping("")
 	public ResponseEntity<JSONResult> inputCart(@RequestBody CartVo vo){
 		Boolean result = cartService.inputCart(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
@@ -60,7 +60,7 @@ public class CartController {
 		@ApiImplicitParam(name="num", value="개수", required=true, dataType="int", defaultValue=""),
 		@ApiImplicitParam(name="price", value="가격", required=true, dataType="int", defaultValue="")
 	})
-	@PutMapping("/")
+	@PutMapping("")
 	public ResponseEntity<JSONResult> updateCart(@RequestBody CartVo vo){
 		Integer result = cartService.updateCart(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
@@ -71,7 +71,7 @@ public class CartController {
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="optionDetailNo", value="상품번호", required=true, dataType="long", defaultValue="")
 	})
-	@DeleteMapping("/")
+	@DeleteMapping("")
 	public ResponseEntity<JSONResult> deleteFromCart(@RequestBody ProductOrderDto dto){
 		Integer result = cartService.removeProduct(dto);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));

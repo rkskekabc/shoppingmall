@@ -30,7 +30,7 @@ public class OptionDetailController {
 	private OptionDetailService optionDetailService;
 	
 	@ApiOperation(value="상세옵션목록")
-	@GetMapping("/")
+	@GetMapping("")
 	public ResponseEntity<JSONResult> getList() {
 		List<OptionDetailInfoDto> list = optionDetailService.getList();
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
@@ -40,11 +40,11 @@ public class OptionDetailController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="product_no", value="상품번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="category_no", value="카테고리번호", required=true, dataType="long", defaultValue=""),
-		@ApiImplicitParam(name="option_child_no1", value="하위옵션 번호1", required=true, dataType="long", defaultValue=""),
-		@ApiImplicitParam(name="option_child_no2", value="하위옵션 번호2", required=true, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="option_child_no1", value="하위옵션 번호1", required=false, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="option_child_no2", value="하위옵션 번호2", required=false, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="stock", value="재고", required=true, dataType="int", defaultValue="")
 	})
-	@PostMapping("/")
+	@PostMapping("")
 	public ResponseEntity<JSONResult> insert(@RequestBody OptionDetailVo vo) {
 		Long no = optionDetailService.insert(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(no));
@@ -55,8 +55,8 @@ public class OptionDetailController {
 		@ApiImplicitParam(name="no", value="상세옵션번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="product_no", value="상품번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="category_no", value="카테고리번호", required=true, dataType="long", defaultValue=""),
-		@ApiImplicitParam(name="option_child_no1", value="하위옵션 번호1", required=true, dataType="long", defaultValue=""),
-		@ApiImplicitParam(name="option_child_no2", value="하위옵션 번호2", required=true, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="option_child_no1", value="하위옵션 번호1", required=false, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="option_child_no2", value="하위옵션 번호2", required=false, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="stock", value="재고", required=true, dataType="int", defaultValue="")
 	})
 	@PutMapping("/{no}")
