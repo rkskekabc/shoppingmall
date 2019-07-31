@@ -15,21 +15,25 @@ public class OptionDetailDao {
 	private SqlSession sqlSession;
 
 	public List<OptionDetailInfoDto> getList() {
-		return sqlSession.selectList("optionDetail.getList");
+		return sqlSession.selectList("optiondetail.getList");
+	}
+
+	public OptionDetailInfoDto getByNo(Long no) {
+		return sqlSession.selectOne("optiondetail.getByNo", no);
 	}
 
 	public Long insert(OptionDetailVo vo) {
-		sqlSession.insert("optionDetail.insert", vo);
+		sqlSession.insert("optiondetail.insert", vo);
 		return vo.getNo();
 	}
 
 	public Long update(OptionDetailVo vo) {
-		sqlSession.update("optionDetail.update", vo);
+		sqlSession.update("optiondetail.update", vo);
 		return vo.getNo();
 	}
 
 	public Boolean delete(Long no) {
-		sqlSession.delete("optionDetail.delete", no);
+		sqlSession.delete("optiondetail.delete", no);
 		return true;
 	}
 }

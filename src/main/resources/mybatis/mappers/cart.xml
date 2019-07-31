@@ -3,26 +3,15 @@
 <mapper namespace="cart">
 	<select id="getCartList" parameterType="long" resultType="cartvo" >
 		<![CDATA[
-		select member_no as memberNo, product_no as productNo, num, price
+		select member_no as memberNo, option_detail_no as optionDetailNo, num, price
 		  from cart 
 		  where member_no = #{value}
 		]]>
 	</select>
 	
-	<select id="getCartProductList" parameterType="long" resultType="cartproductdto" >
-		<![CDATA[
-		select c.info as optionInfo, c.price as price, c.stock as stock, d.name as categoryName, b.type as type, b.name as name, b.explanation as explanation, b.reg_date as regDate, a.num as num, a.price as priceSum
-		  from cart a 
-		  join product b on a.product_no=b.no 
-		  join product_option c on b.option_no=c.no 
-		  join category d on b.category_no=d.no 
-		  where a.member_no = #{value}
-		]]>
-	</select>
-	
 	<insert id="insert" parameterType="cartvo">
 		<![CDATA[
-			insert into cart(member_no, product_no, num, price) values(#{memberNo }, #{productNo}, #{num }, #{price })
+			insert into cart(member_no, option_detail_no, num, price) values(#{memberNo }, #{optionDetailNo}, #{num }, #{price })
 		]]>
 	</insert>
 	
@@ -30,14 +19,14 @@
 		<![CDATA[
 			update cart
 				set num=#{num }, price=#{price }
-				where member_no=#{memberNo } and product_no=#{productNo }
+				where member_no=#{memberNo } and option_detail_no=#{optionDetailNo }
 		]]>
 	</insert>
 	
-	<delete id="deleteOne" parameterType="productorderdto">
+	<delete id="deleteOne" parameterType="cartvo">
 		<![CDATA[
 		delete from cart
-		 where member_no=#{memberNo } and product_no=#{productNo }
+		 where member_no=#{memberNo } and option_detail_no=#{optionDetailNo }
 		]]>
 	</delete>
 	

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.shoppingmall.dto.CartProductDto;
-import com.cafe24.shoppingmall.dto.ProductOrderDto;
 import com.cafe24.shoppingmall.vo.CartVo;
 
 @Repository
@@ -19,10 +18,6 @@ public class CartDao {
 		return sqlSession.selectList("cart.getCartList", memberNo);
 	}
 	
-	public List<CartProductDto> getCartProductList(Long memberNo){
-		return sqlSession.selectList("cart.getCartProductList", memberNo);
-	}
-
 	public Boolean inputCart(CartVo vo) {
 		sqlSession.insert("cart.insert", vo);
 		return true;
@@ -32,8 +27,8 @@ public class CartDao {
 		return sqlSession.update("cart.update", vo);
 	}
 
-	public Integer deleteOne(ProductOrderDto dto) {
-		return sqlSession.delete("cart.deleteOne", dto);
+	public Integer deleteOne(CartVo vo) {
+		return sqlSession.delete("cart.deleteOne", vo);
 	}
 
 	public Integer deleteAll(Long memberNo) {

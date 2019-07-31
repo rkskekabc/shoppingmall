@@ -18,6 +18,10 @@ public class OptionDetailService {
 		return optionDetailDao.getList();
 	}
 
+	public OptionDetailInfoDto getByNo(Long no) {
+		return optionDetailDao.getByNo(no);
+	}
+
 	public Long insert(OptionDetailVo vo) {
 		return optionDetailDao.insert(vo);
 	}

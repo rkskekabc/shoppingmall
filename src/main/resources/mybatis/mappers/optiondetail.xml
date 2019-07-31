@@ -14,6 +14,20 @@
 		  join option_parent g on e.option_parent_no=g.no 
 		]]>
 	</select>
+
+	<select id="getByNo" resultType="optiondetailinfodto" parameterType='long'>
+		<![CDATA[
+		select a.no as no, a.product_no as productNo, b.name as productName, a.category_no as categoryNo, c.name as categoryName, a.option_child_no1 as optionChildNo1, d.name as optionChildName1, a.option_child_no2 as optionChildNo2, e.name as optionChildName2, f.no as optionParentNo1, f.name as optionParentName1, g.no as optionParentNo2, g.name as optionParentName2, a.stock as stock 
+		  from option_detail a 
+		  join product b on a.product_no=b.no 
+		  join category c on a.category_no=c.no 
+		  join option_child d on a.option_child_no1=d.no 
+		  join option_child e on a.option_child_no2=e.no 
+		  join option_parent f on d.option_parent_no=f.no 
+		  join option_parent g on e.option_parent_no=g.no
+		  where a.no = #{value }
+		]]>
+	</select>
 	
 	<insert id="insert" parameterType="optiondetailvo">
 		<![CDATA[
@@ -25,19 +39,11 @@
 			]]>
 		</selectKey>
 	</insert>
-
-	<select id="getByNo" resultType="optiondetailvo" parameterType='long'>
-		<![CDATA[
-		select no, product_no, category_no, option_child_no1, option_child_no2, stock
-		  from option_detail
-		 where no = #{value }
-		]]>
-	</select>
 	
 	<update id="update" parameterType="optiondetailvo">
 		<![CDATA[
 		update option_detail
-			set product_no=#{productNo }, category_no=#{categoryNo }, option_child_no1=#{option_child_no1 }, option_child_no2=#{option_child_no2 }, stock=#{stock }
+			set product_no=#{productNo }, category_no=#{categoryNo }, option_child_no1=#{optionChildNo1 }, option_child_no2=#{optionChildNo2 }, stock=#{stock }
 			where no=#{no }
 		]]>
 	</update>

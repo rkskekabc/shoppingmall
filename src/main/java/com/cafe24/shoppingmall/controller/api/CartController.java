@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cafe24.shoppingmall.dto.CartProductDto;
 import com.cafe24.shoppingmall.dto.JSONResult;
-import com.cafe24.shoppingmall.dto.ProductOrderDto;
+import com.cafe24.shoppingmall.dto.OptionDetailInfoDto;
 import com.cafe24.shoppingmall.service.CartService;
 import com.cafe24.shoppingmall.vo.CartVo;
 
@@ -36,8 +35,8 @@ public class CartController {
 	})
 	@GetMapping("/{memberNo}")
 	public ResponseEntity<JSONResult> getCart(@PathVariable Long memberNo){
-		List<CartProductDto> dto = cartService.getCartProductList(memberNo);
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(dto));
+		List<OptionDetailInfoDto> list = cartService.getCartList(memberNo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 
 	@ApiOperation(value="장바구니등록")
@@ -72,8 +71,8 @@ public class CartController {
 		@ApiImplicitParam(name="optionDetailNo", value="상품번호", required=true, dataType="long", defaultValue="")
 	})
 	@DeleteMapping("")
-	public ResponseEntity<JSONResult> deleteFromCart(@RequestBody ProductOrderDto dto){
-		Integer result = cartService.removeProduct(dto);
+	public ResponseEntity<JSONResult> deleteFromCart(@RequestBody CartVo vo){
+		Integer result = cartService.removeProduct(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 
