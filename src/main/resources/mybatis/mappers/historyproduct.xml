@@ -18,8 +18,8 @@
 	
 	<insert id="insert" parameterType="historyproductvo">
 		<![CDATA[
-			insert into history_product(history_no, product_no, num, price)
-			 values(#{historyNo }, #{productNo }, #{num }, #{price })
+			insert into history_product(history_no, option_detail_no, num, price)
+			 values(#{historyNo }, #{optionDetailNo }, #{num }, #{price })
 		]]>
 	</insert>
 	
