@@ -44,9 +44,8 @@ public class CategoryController {
 	
 	@ApiOperation(value="카테고리등록")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="no", value="카테고리번호", required=true, dataType="long", defaultValue=""),
 		@ApiImplicitParam(name="name", value="카테고리명", required=true, dataType="string", defaultValue=""),
-		@ApiImplicitParam(name="parent_no", value="상위 카테고리 번호", required=true, dataType="long", defaultValue="")
+		@ApiImplicitParam(name="parent_no", value="상위 카테고리 번호", required=false, dataType="long", defaultValue="")
 	})
 	@PostMapping("")
 	public ResponseEntity<JSONResult> add(@RequestBody CategoryVo vo) {

@@ -1,10 +1,9 @@
 package com.cafe24.shoppingmall.controller.api;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -16,16 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.cafe24.config.web.TestWebConfig;
 import com.cafe24.shoppingmall.vo.MemberVo;
 import com.google.gson.Gson;
 
@@ -47,23 +42,75 @@ public class MemberControllerTest {
 	}
 
 	@Test
-	public void testSuccessJoinForm() throws Exception {
-		ResultActions resultActions =
-		mockMvc
-		.perform(get("/api/member/join").contentType(MediaType.APPLICATION_JSON));
+	public void testAFailExistId() throws Exception {
+		MemberVo vo = new MemberVo();
+		vo.setId("rkskekfk");
 		
+		ResultActions resultActions =
+				mockMvc
+					.perform(post("/api/member/checkid")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(vo)));
 		resultActions
 		.andExpect(status().isOk())
 		.andDo(print())
 		.andExpect(jsonPath("$.result", is("success")))
-		.andExpect(jsonPath("$.data", is("member_form")));
+		.andExpect(jsonPath("$.data", is(false)));
 	}
 	
 	@Test
-	public void testSuccessJoinMember() throws Exception {
+	public void testBFailExistEmail() throws Exception {
 		MemberVo vo = new MemberVo();
-		vo.setEmail("KSJ@ss.com");
-		vo.setPassword("1234");
+		vo.setEmail("rkskekfk@rkskekfk.com");
+		
+		ResultActions resultActions =
+				mockMvc
+					.perform(post("/api/member/checkemail")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(vo)));
+		resultActions
+		.andExpect(status().isOk())
+		.andDo(print())
+		.andExpect(jsonPath("$.result", is("success")))
+		.andExpect(jsonPath("$.data", is(false)));
+	}
+	
+	@Test
+	public void testCFailValidationJoinMember() throws Exception {
+		MemberVo vo = new MemberVo();
+		vo.setId("rkskekfk");
+		vo.setPassword("rkskekfk");
+		vo.setName("가나다라");
+		vo.setType("USER");
+		vo.setBirth("2001-01-01");
+		vo.setGender("m");
+		vo.setEmail("rkskekfk");
+		vo.setPhone("010-1111-1111");
+		vo.setAddress("주소");
+		
+		ResultActions resultActions =
+		mockMvc
+		.perform(post("/api/member").contentType(MediaType.APPLICATION_JSON)
+		.content(new Gson().toJson(vo)));
+		resultActions
+		.andExpect(status().isBadRequest())
+		.andDo(print())
+		.andExpect(jsonPath("$.result", is("fail")))
+		.andExpect(jsonPath("$.message", is("invalid email")));
+	}
+
+	@Test
+	public void testDSuccessJoinMember() throws Exception {
+		MemberVo vo = new MemberVo();
+		vo.setId("rkskekfk");
+		vo.setPassword("rkskekfk");
+		vo.setName("가나다라");
+		vo.setType("USER");
+		vo.setBirth("2001-01-01");
+		vo.setGender("m");
+		vo.setEmail("rkskekfk@rkskekfk.com");
+		vo.setPhone("010-1111-1111");
+		vo.setAddress("주소");
 		
 		ResultActions resultActions =
 		mockMvc
@@ -75,31 +122,17 @@ public class MemberControllerTest {
 		.andExpect(jsonPath("$.result", is("success")))
 		.andExpect(jsonPath("$.data", is(1)));
 	}
-	@Test
-	public void testFailValidationJoinMember() throws Exception {
-		MemberVo vo = new MemberVo();
-		vo.setEmail("KSJ");
-		vo.setPassword("1234");
-		
-		ResultActions resultActions =
-		mockMvc
-		.perform(post("/api/member/join").contentType(MediaType.APPLICATION_JSON)
-		.content(new Gson().toJson(vo)));
-		resultActions
-		.andExpect(status().isBadRequest())
-		.andDo(print())
-		.andExpect(jsonPath("$.result", is("fail")))
-		.andExpect(jsonPath("$.message", is("invalid email")));
-	}
 	
 	@Test
-	public void testSuccessExistEmail() throws Exception {
-		String email = "rkskek@rkskek.com";
+	public void testESuccessExistId() throws Exception {
+		MemberVo vo = new MemberVo();
+		vo.setId("rkskekfk");
 		
 		ResultActions resultActions =
 				mockMvc
-					.perform(get("/api/member/checkemail").param("email", email)
-					.contentType(MediaType.APPLICATION_JSON));
+					.perform(post("/api/member/checkid")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(vo)));
 		resultActions
 		.andExpect(status().isOk())
 		.andDo(print())
@@ -108,28 +141,15 @@ public class MemberControllerTest {
 	}
 	
 	@Test
-	public void testFailExistEmail() throws Exception {
-		String email = "aaa@aaa.com";
+	public void testFSuccessExistEmail() throws Exception {
+		MemberVo vo = new MemberVo();
+		vo.setEmail("rkskekfk@rkskekfk.com");
 		
 		ResultActions resultActions =
 				mockMvc
-					.perform(get("/api/member/checkemail").param("email", email)
-					.contentType(MediaType.APPLICATION_JSON));
-		resultActions
-		.andExpect(status().isOk())
-		.andDo(print())
-		.andExpect(jsonPath("$.result", is("success")))
-		.andExpect(jsonPath("$.data", is(false)));
-	}
-	
-	@Test
-	public void testSuccessExistId() throws Exception {
-		String id = "rkskek";
-		
-		ResultActions resultActions =
-				mockMvc
-					.perform(get("/api/member/checkid").param("id", id)
-					.contentType(MediaType.APPLICATION_JSON));
+					.perform(post("/api/member/checkemail")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(vo)));
 		resultActions
 		.andExpect(status().isOk())
 		.andDo(print())
@@ -138,29 +158,30 @@ public class MemberControllerTest {
 	}
 	
 	@Test
-	public void testFailExistId() throws Exception {
-		String id = "aaa";
+	public void testGFailUpdate() throws Exception {
+		MemberVo vo = new MemberVo();
+		vo.setEmail("rkskekfk");
 		
 		ResultActions resultActions =
 				mockMvc
-					.perform(get("/api/member/checkid").param("id", id)
-					.contentType(MediaType.APPLICATION_JSON));
+					.perform(put("/api/member/1")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(vo)));
 		resultActions
 		.andExpect(status().isOk())
 		.andDo(print())
 		.andExpect(jsonPath("$.result", is("success")))
-		.andExpect(jsonPath("$.data", is(false)));
+		.andExpect(jsonPath("$.data", is(-1)));
 	}
 	
 	@Test
-	public void testSuccessLogin() throws Exception {
+	public void testHSuccessUpdate() throws Exception {
 		MemberVo vo = new MemberVo();
-		vo.setId("rkskek");
-		vo.setPassword("1234");
+		vo.setEmail("rkskekfk1@rkskekfk.com");
 		
 		ResultActions resultActions =
 				mockMvc
-					.perform(post("/api/member/login")
+					.perform(put("/api/member/1")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(new Gson().toJson(vo)));
 		resultActions
@@ -169,12 +190,12 @@ public class MemberControllerTest {
 		.andExpect(jsonPath("$.result", is("success")))
 		.andExpect(jsonPath("$.data", is(1)));
 	}
-	
+
 	@Test
-	public void testFailLogin() throws Exception {
+	public void testIFailLogin() throws Exception {
 		MemberVo vo = new MemberVo();
-		vo.setId("rksk");
-		vo.setPassword("123");
+		vo.setId("rkskekfk");
+		vo.setPassword("rkskekfk123");
 		
 		ResultActions resultActions =
 				mockMvc
@@ -189,28 +210,14 @@ public class MemberControllerTest {
 	}
 	
 	@Test
-	public void testSuccessUpdateForm() throws Exception {
-		ResultActions resultActions =
-		mockMvc
-		.perform(get("/api/member/update").contentType(MediaType.APPLICATION_JSON));
-		
-		resultActions
-		.andExpect(status().isOk())
-		.andDo(print())
-		.andExpect(jsonPath("$.result", is("success")))
-		.andExpect(jsonPath("$.data", is("update_form")));
-	}
-	
-	@Test
-	public void testSuccessUpdate() throws Exception {
+	public void testJSuccessLogin() throws Exception {
 		MemberVo vo = new MemberVo();
-		vo.setNo(1L);
-		vo.setId("rksk");
-		vo.setPassword("123");
+		vo.setId("rkskekfk");
+		vo.setPassword("rkskekfk");
 		
 		ResultActions resultActions =
 				mockMvc
-					.perform(post("/api/member/update")
+					.perform(post("/api/member/login")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(new Gson().toJson(vo)));
 		resultActions
@@ -221,26 +228,7 @@ public class MemberControllerTest {
 	}
 	
 	@Test
-	public void testFailUpdate() throws Exception {
-		MemberVo vo = new MemberVo();
-		vo.setNo(2L);
-		vo.setId("rksk");
-		vo.setPassword("123");
-		
-		ResultActions resultActions =
-				mockMvc
-					.perform(post("/api/member/update")
-					.contentType(MediaType.APPLICATION_JSON)
-					.content(new Gson().toJson(vo)));
-		resultActions
-		.andExpect(status().isOk())
-		.andDo(print())
-		.andExpect(jsonPath("$.result", is("success")))
-		.andExpect(jsonPath("$.data", is(-1)));
-	}
-	
-	@Test
-	public void testSuccsessLogout() throws Exception {
+	public void testKSuccsessLogout() throws Exception {
 		ResultActions resultActions =
 				mockMvc
 					.perform(post("/api/member/logout")

@@ -89,7 +89,13 @@ public class MemberController {
 		@ApiImplicitParam(name="address", value="주소", required=true, dataType="string", defaultValue="")
 	})
 	@PutMapping("/{no}")
-	public ResponseEntity<JSONResult> update(@PathVariable Long no, @RequestBody MemberVo vo) {
+	public ResponseEntity<JSONResult> update(@PathVariable Long no, @RequestBody @Valid MemberVo vo, BindingResult bindResult) {
+		if(bindResult.hasErrors()) {
+			List<ObjectError> list = bindResult.getAllErrors();
+			for(ObjectError error : list) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail(error.getDefaultMessage()));
+			}
+		}
 		Long returnNo = memberService.update(no, vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(returnNo));
 	}

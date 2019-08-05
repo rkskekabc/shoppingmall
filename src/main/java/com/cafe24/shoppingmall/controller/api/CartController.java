@@ -68,7 +68,7 @@ public class CartController {
 	@ApiOperation(value="장바구니에서 제거")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="memberNo", value="사용자번호", required=true, dataType="long", defaultValue=""),
-		@ApiImplicitParam(name="optionDetailNo", value="상품번호", required=true, dataType="long", defaultValue="")
+		@ApiImplicitParam(name="optionDetailNo", value="상세옵션번호", required=true, dataType="long", defaultValue="")
 	})
 	@DeleteMapping("")
 	public ResponseEntity<JSONResult> deleteFromCart(@RequestBody CartVo vo){
