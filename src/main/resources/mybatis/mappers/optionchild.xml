@@ -4,14 +4,14 @@
 
 	<select id="getList" resultType="optionchildvo">
 		<![CDATA[
-		select no, option_parent_no, name
+		select no, option_parent_no as optionParentNo, name
 		  from option_child
 		]]>
 	</select>
 
 	<select id="getByNo" resultType="optionchildvo" parameterType='long'>
 		<![CDATA[
-		select no, option_parent_no, name
+		select no, option_parent_no as optionParentNo, name
 		  from option_child
 		 where no = #{value }
 		]]>
@@ -19,7 +19,7 @@
 
 	<select id="getByParentNo" resultType="optionchildvo" parameterType='long'>
 		<![CDATA[
-		select no, option_parent_no, name
+		select no, option_parent_no as optionParentNo, name
 		  from option_child
 		 where option_parent_no = #{value }
 		]]>

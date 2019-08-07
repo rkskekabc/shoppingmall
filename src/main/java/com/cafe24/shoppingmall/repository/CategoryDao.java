@@ -17,8 +17,16 @@ public class CategoryDao {
 		return sqlSession.selectList("category.getList");
 	}
 
+	public List<CategoryVo> getChildList() {
+		return sqlSession.selectList("category.getChildList");
+	}
+
 	public CategoryVo get(Long no) {
 		return sqlSession.selectOne("category.getByNo", no);
+	}
+
+	public List<CategoryVo> getChildByNo(Long parentNo) {
+		return sqlSession.selectList("category.getChildByNo", parentNo);
 	}
 	
 	public Long insert(CategoryVo vo) {

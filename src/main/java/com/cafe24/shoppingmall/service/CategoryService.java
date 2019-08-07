@@ -14,13 +14,19 @@ public class CategoryService {
 	private CategoryDao categoryDao;
 
 	public List<CategoryVo> getList() {
-		// TODO Auto-generated method stub
 		return categoryDao.getList();
 	}
 
+	public List<CategoryVo> getChildList() {
+		return categoryDao.getChildList();
+	}
+
 	public CategoryVo get(Long no) {
-		// TODO Auto-generated method stub
 		return categoryDao.get(no);
+	}
+
+	public List<CategoryVo> getChildByNo(Long parentNo) {
+		return categoryDao.getChildByNo(parentNo);
 	}
 	
 	public Long add(CategoryVo vo) {

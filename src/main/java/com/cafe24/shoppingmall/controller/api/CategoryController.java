@@ -35,11 +35,25 @@ public class CategoryController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 	
+	@ApiOperation(value="하위 카테고리목록")
+	@GetMapping("/child")
+	public ResponseEntity<JSONResult> getChildList() {
+		List<CategoryVo> list = categoryService.getChildList();
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
+	}
+	
 	@ApiOperation(value="특정 카테고리 선택")
 	@GetMapping("/{no}")
 	public ResponseEntity<JSONResult> get(@PathVariable Long no) {
 		CategoryVo vo = categoryService.get(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
+	}
+	
+	@ApiOperation(value="특정 카테고리의 하위 카테고리 목록")
+	@GetMapping("/child/{parentNo}")
+	public ResponseEntity<JSONResult> getChild(@PathVariable Long parentNo) {
+		List<CategoryVo> list = categoryService.getChildByNo(parentNo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 	
 	@ApiOperation(value="카테고리등록")

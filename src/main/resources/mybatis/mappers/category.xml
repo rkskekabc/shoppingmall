@@ -9,11 +9,27 @@
 		]]>
 	</select>
 	
+	<select id="getChildList" resultType="categoryvo" >
+		<![CDATA[
+		select no, name, parent_no as parentNo
+		  from category
+		  where parent_no is not null
+		]]>
+	</select>
+	
 	<select id="getByNo" parameterType="long" resultType="categoryvo" >
 		<![CDATA[
 		select no, name, parent_no as parentNo
 		  from category
 		  where no=#{value}
+		]]>
+	</select>
+	
+	<select id="getChildByNo" parameterType="long" resultType="categoryvo" >
+		<![CDATA[
+		select no, name, parent_no as parentNo
+		  from category
+		  where parent_no=#{value}
 		]]>
 	</select>
 	
