@@ -22,6 +22,10 @@ public class ProductOptionService {
 		return optionParentDao.getList();
 	}
 
+	public OptionParentVo getOptionParentByNo(Long no) {
+		return optionParentDao.getByNo(no);
+	}
+
 	public Long insertOptionParent(OptionParentVo vo) {
 		return optionParentDao.insert(vo);
 	}

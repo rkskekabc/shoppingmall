@@ -22,6 +22,10 @@ public class OptionDetailService {
 		return optionDetailDao.getByNo(no);
 	}
 
+	public List<OptionDetailInfoDto> getByProductNo(Long productNo) {
+		return optionDetailDao.getByProductNo(productNo);
+	}
+
 	public Long insert(OptionDetailVo vo) {
 		return optionDetailDao.insert(vo);
 	}

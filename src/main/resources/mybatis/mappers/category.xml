@@ -5,6 +5,7 @@
 		<![CDATA[
 		select no, name, parent_no as parentNo
 		  from category
+		  where parent_no is null
 		]]>
 	</select>
 	

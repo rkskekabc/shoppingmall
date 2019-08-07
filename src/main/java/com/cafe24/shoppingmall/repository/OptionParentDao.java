@@ -17,6 +17,10 @@ public class OptionParentDao {
 		sqlSession.insert("optionparent.insert", vo);
 		return vo.getNo();
 	}
+
+	public OptionParentVo getByNo(Long no) {
+		return sqlSession.selectOne("optionparent.getByNo", no);
+	}
 	
 	public List<OptionParentVo> getList(){
 		return sqlSession.selectList("optionparent.getList");

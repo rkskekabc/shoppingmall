@@ -42,6 +42,13 @@ public class OptionDetailController {
 		OptionDetailInfoDto dto = optionDetailService.getByNo(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(dto));
 	}
+	
+	@ApiOperation(value="해당 상품의 상세옵션목록")
+	@GetMapping("/product/{productNo}")
+	public ResponseEntity<JSONResult> getProductOptions(@PathVariable Long productNo) {
+		List<OptionDetailInfoDto> list = optionDetailService.getByProductNo(productNo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
+	}
 
 	@ApiOperation(value="상세옵션입력")
 	@ApiImplicitParams({

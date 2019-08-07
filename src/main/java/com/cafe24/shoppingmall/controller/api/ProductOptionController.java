@@ -36,6 +36,13 @@ public class ProductOptionController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 	
+	@ApiOperation(value="상위옵션 선택")
+	@GetMapping("/parent/{no}")
+	public ResponseEntity<JSONResult> getParentByNo(@PathVariable Long no) {
+		OptionParentVo vo = productOptionService.getOptionParentByNo(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
+	}
+	
 	@ApiOperation(value="상위옵션 입력")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="name", value="이름", required=true, dataType="string", defaultValue=""),

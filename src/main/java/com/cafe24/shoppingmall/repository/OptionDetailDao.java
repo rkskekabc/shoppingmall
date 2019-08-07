@@ -22,6 +22,10 @@ public class OptionDetailDao {
 		return sqlSession.selectOne("optiondetail.getByNo", no);
 	}
 
+	public List<OptionDetailInfoDto> getByProductNo(Long productNo) {
+		return sqlSession.selectList("optiondetail.getByProductNo", productNo);
+	}
+
 	public Long insert(OptionDetailVo vo) {
 		sqlSession.insert("optiondetail.insert", vo);
 		return vo.getNo();
