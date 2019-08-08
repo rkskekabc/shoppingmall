@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -31,7 +32,7 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
-	
+
 	@ApiOperation(value="아이디 존재 여부")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="id", value="아이디", required=true, dataType="string", defaultValue="")
@@ -40,6 +41,16 @@ public class MemberController {
 	public ResponseEntity<JSONResult> checkId(@RequestBody MemberVo vo) {
 		Boolean exist = memberService.existId(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
+	}
+
+	@ApiOperation(value="아이디로 찾기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="id", value="아이디", required=true, dataType="string", defaultValue="")
+	})
+	@GetMapping("/{id}")
+	public ResponseEntity<JSONResult> getById(@PathVariable String id) {
+		MemberVo result = memberService.getById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 	
 	@ApiOperation(value="이메일 존재 여부")
@@ -50,6 +61,13 @@ public class MemberController {
 	public ResponseEntity<JSONResult> checkEmail(@RequestBody MemberVo vo) {
 		Boolean exist = memberService.existEmail(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
+	}
+
+	@ApiOperation(value="회원 목록")
+	@GetMapping("")
+	public ResponseEntity<JSONResult> getList() {
+		List<MemberVo> list = memberService.getList();
+        return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 
 	@ApiOperation(value="회원가입 처리")

@@ -1,6 +1,7 @@
 package com.cafe24.shoppingmall.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -15,20 +16,16 @@ public class MemberDao {
 	
 	@Autowired
 	private SqlSession sqlSession;
-
-	public MemberVo testData() {
-		MemberVo vo = new MemberVo();
-		vo.setNo(1L);
-		vo.setId("rkskek");
-		vo.setEmail("rkskek@rkskek.com");
-		vo.setPassword("1234");
-		return vo;
-	}
 	
 	public Long insert(MemberVo vo) {
 		vo.setAesKey(aesKey);
 		sqlSession.insert("member.insert", vo);
 		return vo.getNo();
+	}
+
+	public List<MemberVo> getList(MemberVo vo) {
+		vo.setAesKey(aesKey);
+		return sqlSession.selectList("member.getList", vo);
 	}
 
 	public MemberVo getByEmail(MemberVo vo) {

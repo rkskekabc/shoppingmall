@@ -7,7 +7,7 @@
 			insert into member(id, password, name, type, birth, gender, email, phone, address, join_date)
 				values(
 				#{id},
-				SHA2(#{password}, 256),
+				#{password},
 				AES_ENCRYPT(#{name}, #{aesKey}),
 				#{type},
 				AES_ENCRYPT(#{birth}, #{aesKey}),
@@ -24,6 +24,13 @@
 		</selectKey>
 	</insert>
 
+	<select id="getList" parameterType="membervo" resultType="membervo">
+		<![CDATA[	 
+		select no, id, cast(AES_DECRYPT(name, #{aesKey}) as char) as name, cast(AES_DECRYPT(birth, #{aesKey}) as char) as birth, cast(AES_DECRYPT(email, #{aesKey}) as char) as email, cast(AES_DECRYPT(address, #{aesKey}) as char) as address, cast(AES_DECRYPT(phone, #{aesKey}) as char) as phone, gender
+		  from member 
+		]]>
+	</select>
+
 	<select id="getByNo" resultType="membervo" parameterType='membervo'>
 		<![CDATA[	 
 		select no, cast(AES_DECRYPT(name, #{aesKey}) as char) as name, cast(AES_DECRYPT(email, #{aesKey}) as char) as email, cast(AES_DECRYPT(address, #{aesKey}) as char) as address, cast(AES_DECRYPT(phone, #{aesKey}) as char) as phone, gender
@@ -34,7 +41,7 @@
 
 	<select id="getById" resultType="membervo" parameterType='membervo'>
 		<![CDATA[	 
-		select no, cast(AES_DECRYPT(name, #{aesKey}) as char) as name, cast(AES_DECRYPT(email, #{aesKey}) as char) as email, gender
+		select no, id, password, cast(AES_DECRYPT(name, #{aesKey}) as char) as name, cast(AES_DECRYPT(email, #{aesKey}) as char) as email, type, gender
 		  from member 
 		 where id = #{id }
 		]]>

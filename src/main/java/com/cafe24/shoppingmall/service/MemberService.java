@@ -1,5 +1,7 @@
 package com.cafe24.shoppingmall.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,17 @@ public class MemberService {
 
 	public Boolean existId(MemberVo vo) {
 		return memberDao.getById(vo) != null;
+	}
+
+	public List<MemberVo> getList() {
+		MemberVo vo = new MemberVo();
+		return memberDao.getList(vo);
+	}
+
+	public MemberVo getById(String id) {
+		MemberVo vo = new MemberVo();
+		vo.setId(id);
+		return memberDao.getById(vo);
 	}
 
 	public MemberVo login(MemberVo vo) {
