@@ -6,6 +6,8 @@ public class ProductVo {
 	private String name;
 	private int price;
 	private String explanation;
+	private String thumbnail;
+	private String detail;
 	private String regDate;
 	public Long getNo() {
 		return no;
@@ -37,6 +39,18 @@ public class ProductVo {
 	public void setExplanation(String explanation) {
 		this.explanation = explanation;
 	}
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+	public String getDetail() {
+		return detail;
+	}
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
 	public String getRegDate() {
 		return regDate;
 	}
@@ -46,7 +60,7 @@ public class ProductVo {
 	@Override
 	public String toString() {
 		return "ProductVo [no=" + no + ", type=" + type + ", name=" + name + ", price=" + price + ", explanation="
-				+ explanation + ", regDate=" + regDate + "]";
+				+ explanation + ", thumbnail=" + thumbnail + ", detail=" + detail + ", regDate=" + regDate + "]";
 	}
 	
 }
