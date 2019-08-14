@@ -108,5 +108,4 @@ public class OptionDetailInfoDto {
 				+ ", optionChildName2=" + optionChildName2 + ", optionParentNo2=" + optionParentNo2
 				+ ", optionParentName2=" + optionParentName2 + ", stock=" + stock + "]";
 	}
-	
 }

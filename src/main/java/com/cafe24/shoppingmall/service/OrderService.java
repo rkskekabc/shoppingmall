@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cafe24.shoppingmall.dto.OrderHistoryDto;
 import com.cafe24.shoppingmall.dto.ProductOrderDto;
 import com.cafe24.shoppingmall.repository.CartDao;
 import com.cafe24.shoppingmall.repository.HistoryProductDao;
@@ -30,6 +31,10 @@ public class OrderService {
 	@Autowired
 	private HistoryProductDao historyProductDao;
 
+	public List<OrderHistoryDto> getListAll() {
+		return orderDao.getAll();
+	}
+	
 	public List<OrderHistoryVo> getList(Long memberNo) {
 		return orderDao.getList(memberNo);
 	}
@@ -63,6 +68,8 @@ public class OrderService {
 			
 			historyProductDao.insert(historyProductVo);
 		}
+		
+		cartDao.deleteAll(memberNo);
 		
 		return true;
 	}

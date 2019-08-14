@@ -35,7 +35,7 @@ public class CartController {
 	})
 	@GetMapping("/{memberNo}")
 	public ResponseEntity<JSONResult> getCart(@PathVariable Long memberNo){
-		List<OptionDetailInfoDto> list = cartService.getCartList(memberNo);
+		List<CartVo> list = cartService.getCartList(memberNo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
 

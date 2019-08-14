@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="orderhistory">
+	<select id="getAll" parameterType="string" resultType="orderhistorydto" >
+		<![CDATA[
+		select a.no, a.member_no as memberNo, cast(AES_DECRYPT(b.name, #{value }) as char) as memberName, a.status, cast(AES_DECRYPT(a.destination, #{value }) as char) as destination, cast(AES_DECRYPT(a.phone, #{value }) as char) as phone, a.order_date as orderDate
+		  from order_history a 
+		  join member b on a.member_no = b.no
+		]]>
+	</select>
+	
 	<select id="getList" parameterType="map" resultType="orderhistoryvo" >
 		<![CDATA[
 		select no, member_no as memberNo, status, cast(AES_DECRYPT(destination, #{aesKey}) as char) as destination, cast(AES_DECRYPT(phone, #{aesKey}) as char) as phone, order_date as orderDate

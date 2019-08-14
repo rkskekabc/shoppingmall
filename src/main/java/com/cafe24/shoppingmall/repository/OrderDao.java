@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cafe24.shoppingmall.dto.OrderHistoryDto;
 import com.cafe24.shoppingmall.vo.OrderHistoryVo;
 
 @Repository
@@ -16,6 +17,10 @@ public class OrderDao {
 	
 	@Autowired
 	private SqlSession sqlSession;
+
+	public List<OrderHistoryDto> getAll() {
+		return sqlSession.selectList("orderhistory.getAll", aesKey);
+	}
 
 	public List<OrderHistoryVo> getList(Long memberNo) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();

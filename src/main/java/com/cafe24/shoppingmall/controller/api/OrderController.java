@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
+import com.cafe24.shoppingmall.dto.OrderHistoryDto;
 import com.cafe24.shoppingmall.dto.ProductOrderDto;
 import com.cafe24.shoppingmall.service.OrderService;
 import com.cafe24.shoppingmall.vo.OrderHistoryVo;
@@ -26,6 +27,13 @@ import io.swagger.annotations.ApiOperation;
 public class OrderController {
 	@Autowired
 	private OrderService orderService;
+	
+	@ApiOperation(value="전체 주문내역 목록")
+	@GetMapping("")
+	public ResponseEntity<JSONResult> orderHistoryListAll() {
+		List<OrderHistoryDto> list = orderService.getListAll();
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
+	}
 	
 	@ApiOperation(value="주문내역 목록")
 	@ApiImplicitParams({
